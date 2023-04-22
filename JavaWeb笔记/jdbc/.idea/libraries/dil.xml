@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="dil">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/jdbc-demo/dil" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/jdbc-demo/dil" recursive="false" />
+  </library>
+</component>

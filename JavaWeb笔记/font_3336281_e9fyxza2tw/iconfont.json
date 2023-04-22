@@ -1,0 +1,23 @@
+{
+  "id": "3336281",
+  "name": "myProject",
+  "font_family": "iconfont",
+  "css_prefix_text": "my-icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1297",
+      "name": "向下",
+      "font_class": "xiangxia",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "2076190",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e86e",
+      "unicode_decimal": 59502
+    }
+  ]
+}

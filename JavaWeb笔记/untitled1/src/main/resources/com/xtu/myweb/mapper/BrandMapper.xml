@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xtu.myweb.mapper.BrandMapper">
+
+<!--    数据库的字段名称和实体类的属性名称不一致则不会自动封装-->
+    <select id="selectAll" resultType="com.xtu.myweb.pojo.Brand">
+        select * from tb_brand;
+    </select>
+
+    <select id="selectById" resultType="com.xtu.myweb.pojo.Brand">
+        select * from tb_brand where id = #{id};
+    </select>
+
+    <select id="selectByCondition" resultType="com.xtu.myweb.pojo.Brand">
+        select * from tb_brand
+        where status = #{status}
+          and companyName like #{companyName}
+          and description like #{description};
+    </select>
+
+<!--动态SQL查询示例-->
+   <!-- <select id="selectByCondition" resultType="com.xtu.myweb.pojo.Brand">
+        select * from tb_brand
+        <where>
+            <if test="statud != null">
+                and status = #{status}
+            </if>
+            <if test="companyName != null and companyName != '' ">
+                and companyName like #{companyName}
+            </if>
+            <if test="description != null and description != '' ">
+                and description like #{description};
+            </if>
+        </where>
+    </select>-->
+
+<!--    未设置主键返回的add函数,这种情况下添加成功了也无法从实例对象中获取到添加后的主键id
+   <insert id="add">
+        INSERT INTO `mybatis`.`tb_brand`
+            (`id`,`brandName`, `companyName`, `ordered`, `description`, `status`)
+             VALUES
+            (NULL,#{brandName},#{companyName}, #{ordered}, #{description}, #{status});
+    </insert>-->
+
+<!--设置主键返回的add函数，这样就能根据实例对象，获取id只-->
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `mybatis`.`tb_brand`
+            (`id`,`brandName`, `companyName`, `ordered`, `description`, `status`)
+        VALUES
+            (NULL,#{brandName},#{companyName}, #{ordered}, #{description}, #{status});
+    </insert>
+
+<!--    动态修改语句-->
+    <update id="update">
+        UPDATE `mybatis`.`tb_brand`
+        <set>
+            <if test="brandName != null">
+                `brandName` = #{brandName} ,
+            </if>
+            <if test="companyName != null">
+                `companyName` = #{companyName} ,
+            </if>
+            <if test="ordered != null">
+                `ordered` = #{ordered} ,
+            </if>
+            <if test="description != null">
+                `description` = #{description} ,
+            </if>
+            <if test="status != null">
+                `status` = #{status}
+            </if>
+        </set>
+        where id = #{id};
+    </update>
+
+<!--    批量删除-->
+<!--    mybatis 会把数组参数，封装成一个Map集合
+        * 默认：array = 数组
+        * 使用@Param注解改变map集合的默认key的名称
+    -->
+    <delete id="deleteByIds">
+        delete from tb_brand where id
+        in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>;
+    </delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+

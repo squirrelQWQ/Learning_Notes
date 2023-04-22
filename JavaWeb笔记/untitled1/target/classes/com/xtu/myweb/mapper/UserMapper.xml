@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xtu.myweb.mapper.UserMapper">
+    <select id="selectAll" resultType="com.xtu.myweb.pojo.User">
+        select * from tb_user;
+    </select>
+    <!--此处id就是接口UserMapper里的方法名，且该方法返回值就是sql语句对应的返回值，本例中就是User对象-->
+</mapper>

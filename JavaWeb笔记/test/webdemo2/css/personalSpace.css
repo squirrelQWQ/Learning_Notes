@@ -1,0 +1,106 @@
+/*CSS会比较乱，为了方便查看和修改，大体格式如下：*/
+/*通用属性设置*/
+/*分块设置*/
+/*特殊样式设置*/
+
+
+/*基本设置*/
+body {
+    font: 100% Lucida Sans, Verdana;
+    margin: 5px;
+    line-height: 26px;
+}
+
+a {
+    color: #000000;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/*头部导航栏***************************************************/
+/*css选择器代码尽量做到能一下与html标签能够匹配上*/
+#upper{
+    margin: 3px;
+}
+#navigation_bar>ul {
+    background-color: #222222;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+#navigation_bar>ul .left{
+    background-color: #222222;
+    float: left;
+}
+#navigation_bar>ul li>a {
+    display: block;
+    padding: 10px;
+    margin: 10px;
+    text-decoration: none;/*去下划线*/
+    background-color: #222222;
+}
+#navigation_bar>ul li>a:link {color: #ffffff}/* 未被访问的链接 */
+#navigation_bar>ul li>a:visited {color: #ffffff} /* 已被访问过的链接 */
+#navigation_bar>ul li>a:hover {color: #a3cd26} /* 鼠标悬浮在上的链接  */
+
+/*左侧导航栏*************************************************/
+#container-left-nav{
+    width: 22%;
+    float: left
+}
+
+#container-left-nav>ul{
+    width: 20%;
+    float: left;
+    margin: 0px;
+    border: 1px solid #d4d4d4;
+    border-radius: 4px;
+    padding: 0;
+}
+#container-left-nav>ul>li{
+    /*设置边框*/
+    background-color: #f1f1f1;
+    padding: 2px;
+
+    /*去除列表样式*/
+    list-style-type: none;
+
+    /*鼠标放上去变成手*/
+    cursor: pointer;
+
+    /*文字居中：设行高和文字居中*/
+    line-height: 60px;
+    text-align: center;
+}
+
+#left-list a{
+    height: 60px;
+}
+
+#left-list li:hover {
+    /*鼠标放上去变色*/
+    background-color: #ffffff;
+}
+
+/*右侧主体内容***************************************/
+#container-main{
+    width: 76%;
+    float: right;
+}
+
+#container-main ul{
+    list-style-type: none;
+}
+
+#container-main .data-detail{
+    list-style-type: none;
+    line-height: 80px;
+    width: 74%;
+}
+
+#container-main .data-detail input{
+    height: 78px;
+}
