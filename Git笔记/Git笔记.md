@@ -71,20 +71,28 @@ git commit <-m "XXX">
 
 
 
+git status示例：
+
+![](Git笔记.assets/git文件状态-1682255809454.png)
+
 文件分两种：已追踪和未追踪
 
-Untracked：文件未跟踪，就是新建的文件但是没有通知git
+**Untracked**：文件未跟踪，就是新建的文件但是没有通知git
 
 - ```
   Untracked files:
     (use "git add <file>..." to include in what will be committed)
   ```
+  
+- 如上图中的 newFile.txt
 
-Unmodified：就是存放在仓库中未修改的文件
 
-- 
 
-Modified：跟踪文件已修改但未暂存，文件任在工作区
+**Unmodified**：就是存放在仓库中未修改的文件
+
+- 就是上图git status没显示的文件
+
+**Modified**：跟踪文件已修改但未暂存，文件任在工作区
 
 - ```console
   Changes not staged for commit:
@@ -92,14 +100,16 @@ Modified：跟踪文件已修改但未暂存，文件任在工作区
     (use "git checkout -- <file>..." to discard changes in working directory)
   ```
 
-Staged：跟踪文件已暂存
+- 如上图中的 Git笔记/Git笔记.md
+
+**Staged**：跟踪文件已暂存
 
 - ```console
   Changes to be committed:
     (use "git restore --staged <file>..." to unstage)
   ```
 
-
+- 如上图的  Git笔记/Git笔记.md     MySQL笔记/MySQL散记.md
 
 commit命令提交的是你最后一次运行 `git add` 命令时的那个版本，而不是你运行 `git commit` 时，在工作目录中的当前版本。 所以，运行了 `git add` 之后又作了修订的文件，需要重新运行 `git add` 把最新版本重新暂存起来：
 
@@ -190,8 +200,16 @@ git add .				\\ 一次加入当前文件夹所有文件
 git commit -m <message>	\\ 将文件提交至仓库，并使用 -m 选项输入描述信息
 git status				\\ 查看仓库目前状态
 git diff <file>			\\ 详细查看仓库的变化
-
 ```
+
+
+
+**git commit**：如果使用commit命令没有添加提示信息会导致此次commit操作失败
+
+- 比如不使用-m选项会直接进入Git默认编辑器，强制要求你写上信息
+  - ![](Git笔记.assets/git commit 无-m选项.png)
+  - 若执迷不悟还是不写信息就退出vim会导致本次commit失败
+  - ![](Git笔记.assets/git commit 无-m选项02.png)
 
 
 
