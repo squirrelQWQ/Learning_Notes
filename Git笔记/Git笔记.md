@@ -35,6 +35,8 @@ B站黑马Git笔记：https://blog.csdn.net/qq_58168493/article/details/12259230
 
 > 一个开源的分布式版本控制系统（svn是集中式版本控制系统）
 
+<font color="red">说明：以下展示的所有代码中 \<xxx\>  表示参数为 xxx</font>
+
 #### 基本概念
 
 Git的基本路子就是每次修改都在本地新建一个文件快照，所以所有的操作都在本地完成
@@ -134,6 +136,14 @@ Git可以详细的记录下仓库总文件发生的变化
 
 ![](Git笔记.assets/Git本地三个区-1681909130014.png)
 
+- 工作区：就是执行了 git init 的那个文件夹
+- 暂存区：是 .git 目录下的 index 文件
+- 版本库（本地仓库）：就是 .git 目录
+
+
+
+​	所有文件要想提交到本地仓库中，都要先 add 到暂存区，而 git commit 命令是一次性将暂存区所有文件都提交到本地仓库。一次commit就代表本地仓库进行了一次版本替换，可以使用 git reset 命令更改仓库的版本，当然具体改到那个版本需要知道commit ID号。
+
 
 
 #### 常用命令
@@ -167,13 +177,12 @@ $ git config --local --list
 初始化仓库：
 $ git init
 其实就是在项目所在目录下创建了一个 .git 文件，该文件包含了所有git操作所需的信息
+要删除该本地仓库可以直接删除 .git 文件即可
 ```
 
 
 
 ##### 添加与查看
-
-说明：以下展示的代码中 \<xxx\>  表示参数为 xxx
 
 ```
 git add <file/dir>			\\ 注意，可反复多次使用，添加多个文件；
@@ -188,7 +197,7 @@ git diff <file>			\\ 详细查看仓库的变化
 
 ##### 版本选择
 
-使用场景：每次提交后都表示生成了一个新的版本，觉得当前版本不好想退回到以前的版本
+使用场景：每次提交后都表示本地仓库生成了一个新的版本，觉得当前版本不好想退回到以前的版本
 
 ```
 版本查看
@@ -207,8 +216,6 @@ git reset --hard <commit id>
 
 
 ##### 撤销操作
-
-
 
 使用场景：在文件提交前（文件可能在暂存区或工作区）发现操作有误想撤销操作
 
@@ -241,11 +248,10 @@ rm test.txt
 这么直接删除文件会使得git不知道此文件删除了，使用git status 会有提示
 
 ```
-$ git rm test.txt
-$ git commit -m "remove test.txt"
+$ git rm test.txt			\\同时删除工作区和暂存区的 test.txt文件
+$ git rm -f test.txt 		\\强行删除工作区和暂存区已经修改过的test.txt文件
+$ git rm --cached <file>	\\直接删除暂存区文件 file ，对工作区无影响
 ```
-
-优雅的删除操作
 
 
 
@@ -283,7 +289,7 @@ git merge <要合并的分支名>	\\ 合并分支，把参数里面的分支合�
 
 
 
-##### 添加远程仓库
+##### SSH认证
 
 1. 首先在github上新建仓库
 
@@ -299,22 +305,23 @@ git merge <要合并的分支名>	\\ 合并分支，把参数里面的分支合�
 
 
 
-
-
-
-
-
-
-
+##### 远程仓库常用命令
 
 ```
-ssh-keygen -t rsa -C "squirrelQWQ@outlook.com"		\\先在本地创建一个ssh密钥
+ssh-keygen -t rsa -C "squirrelQWQ@outlook.com"	  \\先在本地创建一个ssh密钥
 
-$ git remote rm origin		\\删除远程仓库origin	
-$ git remote				\\查看本地仓库关联的远程仓库（只显示仓库名称）
-$ git remote -v				\\查看本地仓库关联的远程仓库（显示仓库fetch和push链接）
-$ git remote add origin git@github.com:squirrelQWQ/Learning_Notes.git	\\添加远程仓库
-$ git pull origin master	\\提交本地仓库到远程仓库origin的master分支上
+$ git remote rm origin							  \\删除远程仓库origin	
+$ git remote									  \\查看本地仓库关联的远程仓库（只显示仓库名称）
+$ git remote -v									  \\查看本地仓库关联的远程仓库（显示仓库fetch和push链接）
+$ git remote add origin git@github.com:squirrelQWQ/Learning_Notes.git	
+												  \\添加远程仓库，并起名为origin
+
+$ git pull <远程主机名> <远程分支名>:<本地分支名>		\\从远程仓库获取代码并合并本地的版本
+$ git pull origin master:master
+$ git pull origin master						  \\将远程仓库origin获取master分支代码并和当前分支进行合并
+
+$ git push <远程主机名> <本地分支名>:<远程分支名>		\\将本地分支上传到远程分支并合并
+$ git push origin master						  \\将本地仓库提交到origin的master上（本地分支名与远程分支名相同，则可以省略冒号：）
 
 
 ```
