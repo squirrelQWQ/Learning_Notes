@@ -18,7 +18,7 @@ B站黑马Git笔记：https://blog.csdn.net/qq_58168493/article/details/12259230
 
 - 快照
 
-  - ```
+  - ```shell
     存储网络行业协会（SNIA）对快照的定义是：对指定数据集合的一个完全可用拷贝，该拷贝包含源数据在拷贝时间点的静态影像。　　
     快照可以是数据再现的一个副本或者复制。对于文件系统来说，文件系统快照是文件系统的一个即时拷贝，它包含了文件系统在快照生成时刻所有的信息，本身也是一个完整可用的副本。
     ```
@@ -27,7 +27,7 @@ B站黑马Git笔记：https://blog.csdn.net/qq_58168493/article/details/12259230
 
 **Watch** ：相当于关注项目，当对方项目有修改能收到通知
 
-**Issue** ：就是一个讨论，可以用于通知项目维护者你发现的问题或者Bug（相当于一个评论区）
+**Issue** ：就是一个讨论，可以用于通知项目维护者你发现的问题或者Bug（相当于一个评论区，可以在此联系作者）
 
 
 
@@ -39,7 +39,9 @@ B站黑马Git笔记：https://blog.csdn.net/qq_58168493/article/details/12259230
 
 #### 基本概念
 
-Git的基本路子就是每次修改都在本地新建一个文件快照，所以所有的操作都在本地完成
+Git的基本路子就是每次修改都在本地新建一个文件快照（也就是每次提交后都产生一个独立的版本），所以所有的操作都在本地完成
+
+查看本机Git版本：git -v
 
 ##### Bash、CMD、GUI
 
@@ -53,11 +55,23 @@ Git的基本路子就是每次修改都在本地新建一个文件快照，所�
 
 
 
+##### Bash窗口使用
+
+```shell
+ctrl+a		\\光标快速移到当前行最左端 
+ctrl+e		\\光标快速移到当前行最右端
+ctrl+c		\\放弃当前行内容直接，开始另一个语句编写
+
+
+```
+
+
+
 ##### 文件状态转换
 
 关于文件状态转换廖雪峰讲的通俗且易懂：https://www.liaoxuefeng.com/wiki/896043488029600/897271968352576
 
-```
+```shell
 git commit <-m "XXX">
 ```
 
@@ -79,14 +93,12 @@ git status示例：
 
 **Untracked**：文件未跟踪，就是新建的文件但是没有通知git
 
-- ```
+- ```shell
   Untracked files:
     (use "git add <file>..." to include in what will be committed)
   ```
   
 - 如上图中的 newFile.txt
-
-
 
 **Unmodified**：就是存放在仓库中未修改的文件
 
@@ -94,7 +106,7 @@ git status示例：
 
 **Modified**：跟踪文件已修改但未暂存，文件任在工作区
 
-- ```console
+- ```shell
   Changes not staged for commit:
     (use "git add <file>..." to update what will be committed)
     (use "git checkout -- <file>..." to discard changes in working directory)
@@ -104,7 +116,7 @@ git status示例：
 
 **Staged**：跟踪文件已暂存
 
-- ```console
+- ```shell
   Changes to be committed:
     (use "git restore --staged <file>..." to unstage)
   ```
@@ -158,11 +170,11 @@ Git可以详细的记录下仓库总文件发生的变化
 
 #### 常用命令
 
-##### 初始配置
+##### 账户设置
 
-Git是分布式的，每个用户之间都是独立的，所以需要自报家门（写明配置信息），只需执行一次即可
+Git是分布式的，每个用户之间都是独立的，所以需要自报家门（git log命令就可以确定是谁做的提交）
 
-```
+```shell
 自报家门：
 $ git config --global user.name "squirrel"
 $ git config --global user.email "squirrelQWQ@outlook.com"
@@ -172,18 +184,24 @@ config 配置有system级别 、global（用户级别） 和local（当前仓库
 
 设置先从system ==> global ==> local  底层配置会覆盖顶层配置 分别使用--system/global/local 可以定位到配置文件
 
-```
+```shell
 查看配置：
-$ git config --system --list
-$ git config --global --list
-$ git config --local --list
+$ git config --system --list	\\对当前计算机范围应用
+$ git config --global --list	\\对当前用户应用
+$ git config --local --list		\\对当前项目应用
+
+由上及下应用范围更精确，精确的配置能覆盖宽泛的配置
 ```
+
+可以这样查看config配置
 
 ![](Git笔记.assets/查看config配置.png)
 
+当然也可以直接修改对应的配置文件，手动config配置
 
 
-```console
+
+```shell
 初始化仓库：
 $ git init
 其实就是在项目所在目录下创建了一个 .git 文件，该文件包含了所有git操作所需的信息
@@ -194,7 +212,7 @@ $ git init
 
 ##### 添加与查看
 
-```
+```shell
 git add <file/dir>			\\ 注意，可反复多次使用，添加多个文件；
 git add .				\\ 一次加入当前文件夹所有文件
 git commit -m <message>	\\ 将文件提交至仓库，并使用 -m 选项输入描述信息
@@ -213,29 +231,53 @@ git diff <file>			\\ 详细查看仓库的变化
 
 
 
-##### 版本选择
+##### 版本穿梭
 
 使用场景：每次提交后都表示本地仓库生成了一个新的版本，觉得当前版本不好想退回到以前的版本
 
-```
+```shell
 版本查看
 git log						\\ 查看仓库的历史版本（主要是各个commit的id和信息）
 git log --pretty=oneline	\\ 只显示简略log信息
 git log --pretty=oneline --abbrev-commit		\\只显示commit id的前几位
-							\\ 次命令很长且经常使用所以可以为该命令取别名
+							\\ 次命令很长且经常使用所以可以为该命令取别名，同时git log命令可以有很多操作，具体操作以后在实际使用中再补充
 git reflog					\\ 查看历史的所有commit操作
 
 修改版本
 git reset --hard <commit id>	
 	\\ 其中commit id 可以在git log命令中查看也可以用 git reflog 查看历史命令
-	\\ 同时commit id可以只输入前几位，git会自动查找给你补全
+	\\ 同时commit id可以只输入前几位，git会自动查找给你补全	
 ```
+
+
+
+git checkout sha1值		 \\\ 版本切换到对应的版本，此时处于游离状态
+
+- 比如当前一次进行了1、2、3、4次提交，则HEAD指向最近一次提交的版本4，此时使用checkout穿梭到版本2
+- 此时在版本2对某一文件进行修改必须提交，且此时对文件的操作不会影响到版本3、4
 
 
 
 ##### 撤销操作
 
-使用场景：在文件提交前（文件可能在暂存区或工作区）发现操作有误想撤销操作
+撤销命令有如下几个
+
+```
+restore
+reset
+checkout
+switch
+```
+
+其实每一次操作之后git都会给出对应的撤销命令是什么，如下面这个例子
+
+- ![](Git笔记.assets/git撤销示例.png)
+- 图中命令表示：hello.txt文件已修改但是未暂存，可以使用 git add将其暂存，也可以使用 git restore 撤销在工作目录中对其的修改
+- 提醒一下，git给出了对应的命令提示，但实际上能达到相同目的的命令不止这些，比如 checkout或reset有时能等效替换git restore命令
+
+
+
+**使用场景**：在文件提交前（文件可能在暂存区或工作区）发现操作有误想撤销操作
 
 ```
 git checkout -- readme.txt
@@ -259,21 +301,37 @@ git checkout -- readme.txt
 
 ##### 删除文件
 
+删除已提交文件
+
+```shell
+方法一：使用git命令删除
+$ git rm b.txt		\\b.txt是已提交的文件，此命令会令其放入暂存区（ls命令找不到文件）
+
+$ git rm b.txt		\\彻底删除次文件需要执行这两个命令
+$ git commit
+
+方法二：使用操作系统命令删除
+$ rm a.txt			\\a.txt是已提交的文件，此命令会令其放入工作区（ls命令找不到文件）
+
+$ rm a.txt			\\彻底删除次文件需要执行这三个命令
+$ git add/rm a.txt	\\意思是说：使用git add或git rm都可以
+$ git commit
+
 ```
-rm test.txt
+
+重命名已提交文件
+
+```shell
+方法一：git mv
+
+方法二：mv
 ```
 
-这么直接删除文件会使得git不知道此文件删除了，使用git status 会有提示
-
-```
-$ git rm test.txt			\\同时删除工作区和暂存区的 test.txt文件
-$ git rm -f test.txt 		\\强行删除工作区和暂存区已经修改过的test.txt文件
-$ git rm --cached <file>	\\直接删除暂存区文件 file ，对工作区无影响
-```
 
 
+##### 忽略文件
 
-让git忽略某些文件 .gitignore 文件
+让git忽略某些文件 .gitignore 文件（就是commit命令要忽略的文件）
 
 详细介绍此文件：https://zhuanlan.zhihu.com/p/52885189
 
@@ -281,23 +339,36 @@ $ git rm --cached <file>	\\直接删除暂存区文件 file ，对工作区无�
 
 #### Git分支
 
-常用命令
+##### 常用命令
 
-```
+```shell
+创建、删除、查看
 git branch <分支名>		\\ 新建分支
+git branch -d <分支名>		\\ 删除分支(不能删除当前分支)
 git branch				  \\ 查看分支，前面有*的就是当前分支
 
-git 可以有多个分支但操作只能针对某一个分支，所以需要指定当前是哪个分支
+切换
 git checkout <分支名>		\\ 切换分支
 git checkout -b <分支名>	\\ 切换分支，若不存在则创建分支
 
-合并分支
-git merge <要合并的分支名>	\\ 合并分支，把参数里面的分支合并到当前分支中
 ```
 
+小细节：一个分支如果进行写操作（增删改操作）且没有 add  commit 那么这个写操作所有分支共享
 
 
-**分支合并冲突**
+
+##### 分支合并
+
+若一个分支进行了写操作（增删改）且进行了 add commit 那么这个分支就需要先合并再删除
+
+若一个分支进行了写操作（增删改）但没有执行 add commit 那么这个分支可以直接删除，且写操作会被保留
+
+```shell
+合并分支
+git merge <要合并的分支名>	 \\ 合并分支，把参数里面的分支合并到当前分支中
+```
+
+合并具体细节：
 
 
 
@@ -313,7 +384,7 @@ git merge <要合并的分支名>	\\ 合并分支，把参数里面的分支合�
 
 2. 再配置密钥信息进行身份认证（具体可参见菜鸟教程：https://www.runoob.com/git/git-remote-repo.html）
 
-   1. ```
+   1. ```shell
       ssh-keygen -t rsa -C "squirrelQWQ@outlook.com"		\\先在本地创建一个ssh密钥
       ```
 
@@ -325,7 +396,7 @@ git merge <要合并的分支名>	\\ 合并分支，把参数里面的分支合�
 
 ##### 远程仓库常用命令
 
-```
+```shell
 ssh-keygen -t rsa -C "squirrelQWQ@outlook.com"	  \\先在本地创建一个ssh密钥
 
 $ git remote rm origin							  \\删除远程仓库origin	
@@ -346,9 +417,23 @@ $ git push origin master						  \\将本地仓库提交到origin的master上（�
 
 
 
+### VIM
 
+#### 插入模式
 
+进入插入模式：i
 
+推出插入模式：Esc
+
+#### 命令模式
+
+进入命令模式：:
+
+显示行号：set number
+
+光标快速移动到某一行：直接输入行号
+
+保存并推出：wq
 
 
 
