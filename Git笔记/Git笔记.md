@@ -174,6 +174,10 @@ Git可以详细的记录下仓库总文件发生的变化
 
 #### 常用命令
 
+git 的所有命令都可以加上 --help 来查找官方文档
+
+
+
 ##### 账户设置
 
 Git是分布式的，每个用户之间都是独立的，所以需要自报家门（git log命令就可以确定是谁做的提交）
@@ -433,7 +437,14 @@ $ git remote add origin git@github.com:squirrelQWQ/Learning_Notes.git
 												  \\添加远程仓库，并起名为origin
 ```
 
+实际上添加远程仓库就是在本地新建了一个 origin/master分支（这个分支默认隐藏，称为：追踪分支）
 
+```shell
+$ git branch -a				\\可以用该命令来查看所有分支
+* master
+  remotes/origin/master
+
+```
 
 
 
@@ -463,25 +474,56 @@ $ git push							\\使用-u绑定一次之后的push操作可以不写参数
 
 
 
+##### 本地与远程冲突
+
 
 
 ### VIM
 
+VIM 常用的有四个模式，：
+
+- 正常模式 (Normal-mode)	
+  - 使用vim打开文件默认就是这个模式
+- 插入模式 (Insert-mode)
+- 命令模式 (Command-mode)
+- 可视模式 (Visual-mode)
+
+
+
 #### 插入模式
+
+![](Git笔记.assets/VIM插入模式.png)
 
 进入插入模式：i
 
 推出插入模式：Esc
 
+
+
+
+
 #### 命令模式
 
-进入命令模式：:
+> 进入命令模式：:
 
-显示行号：set number
+![](Git笔记.assets/VIM命令行模式.png)
 
-光标快速移动到某一行：直接输入行号
+##### 常用命令
 
-保存并推出：wq
+```shell
+set number		\\显示行号
+set nonumber	\\取消显示行号
+8				\\光标移到8行，光标快速移动到某一行：直接输入行号
+wq				\\保存并推出：
+8,12d			\\表示删除行：[8,12]
+/hello			\\查找文字：hello ,查到以后，输入键盘上的 n 寻找下一个匹配，N 寻找上一个匹配。
+
+
+
+
+```
+
+
 
 
 
