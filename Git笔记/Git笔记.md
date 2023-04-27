@@ -4,6 +4,8 @@ git官方有详细的教程（[Git Book](https://git-scm.com/book/zh/v2)），�
 
 B站黑马Git笔记：https://blog.csdn.net/qq_58168493/article/details/122592304
 
+Git进阶视频，课程讲的很详细且命令都有具体操作：https://www.bilibili.com/video/BV1y4411a7Nn/
+
 ### GitHub
 
 > 一个在线软件源代码托管服务平台，使用Git作为唯一的版本控制软件
@@ -372,6 +374,26 @@ git merge <要合并的分支名>	 \\ 合并分支，把参数里面的分支合
 
 
 
+##### 保存现场
+
+> stash
+
+- 建议（规范）：在功能没开发完毕前，不要commit
+- 规定（强制要求）：在没有commit之前，不能checkout切换分支，否则会报error
+
+stash就是一个现场栈，保存现场后就可以愉快的切换分支，之后也可以切换回来回复现场
+
+```shell
+$ git stash						\\保存当前现场
+$ git stash list				\\查看现场栈中元素
+$ git stash pop					\\最近一次保存的现场出栈（恢复现场并删除栈中记录）
+$ git stash apply				\\恢复最近一次现场（恢复现场但不删除栈中记录）
+$ git stash drop stash@{0}		\\手动删除现场栈中的某一个现场
+
+```
+
+
+
 #### 远程仓库
 
 远程仓库就是一些代码托管平台，比如：github、码云、gitlab等
@@ -439,7 +461,7 @@ $ git push origin master						  \\将本地仓库提交到origin的master上（�
 
 
 
-
+测试一下stash
 
 
 
