@@ -218,10 +218,11 @@ $ git init
 
 ```shell
 git add <file/dir>			\\ 注意，可反复多次使用，添加多个文件；
-git add .				\\ 一次加入当前文件夹所有文件
-git commit -m <message>	\\ 将文件提交至仓库，并使用 -m 选项输入描述信息
-git status				\\ 查看仓库目前状态
-git diff <file>			\\ 详细查看仓库的变化
+git add .					\\ 一次加入当前文件夹所有文件
+git commit -m <message>		\\ 将文件提交至仓库，并使用 -m 选项输入描述信息
+git commit -am <message>	\\可以这样子简写命令，add . + commit 一行搞定
+git status					\\ 查看仓库目前状态
+git diff <file>				\\ 详细查看仓库的变化
 ```
 
 
@@ -404,6 +405,8 @@ $ git stash drop stash@{0}		\\手动删除现场栈中的某一个现场
 
 ##### SSH认证
 
+> 可以把ssh密钥放在项目setting中也可以放在账户的setting中，下面是放在账户setting示例
+
 1. 首先在github上新建仓库
 
 2. 再配置密钥信息进行身份认证（具体可参见菜鸟教程：https://www.runoob.com/git/git-remote-repo.html）
@@ -454,7 +457,7 @@ $ git push <远程主机名> <本地分支名>:<远程分支名>		\\将本地分
 $ git push origin master						  \\将本地仓库提交到origin的master上（本地分支名与远程分支名相同，则可以省略冒号：）
 
 $ git push -u origin master			\\第一次使用push命令可以这样操作，意思是说吧origin和master绑定在一起
-$ git push							\\使用-u绑定之后，就可以直接这样子操作，简写命令
+$ git push							\\使用-u绑定一次之后的push操作可以不写参数
 
 ```
 
