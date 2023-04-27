@@ -163,6 +163,8 @@ Git可以详细的记录下仓库总文件发生的变化
 - 工作区：就是执行了 git init 的那个文件夹
 - 暂存区：是 .git 目录下的 index 文件
 - 版本库（本地仓库）：就是 .git 目录
+  - 这个区也可以叫：对象区
+  - 总之一次commit对应一个版本，所有版本都可以在版本库中找到（可以进行版本穿梭）
 
 
 
@@ -416,7 +418,7 @@ $ git stash drop stash@{0}		\\手动删除现场栈中的某一个现场
 
 
 
-##### 远程仓库常用命令
+##### 添加远程
 
 ```shell
 ssh-keygen -t rsa -C "squirrelQWQ@outlook.com"	  \\先在本地创建一个ssh密钥
@@ -427,14 +429,22 @@ $ git remote -v									  \\查看本地仓库关联的远程仓库（显示仓�
 $ git remote add origin git@github.com:squirrelQWQ/Learning_Notes.git	
 												  \\添加远程仓库，并起名为origin
 
+```
+
+
+
+
+
+##### 拉取和推送
+
+```shell
 $ git pull <远程主机名> <远程分支名>:<本地分支名>		\\从远程仓库获取代码并合并本地的版本
+pull  = fetch + merge ， 也就是说pull操作实际上有两步
 $ git pull origin master:master
 $ git pull origin master						  \\将远程仓库origin获取master分支代码并和当前分支进行合并
 
 $ git push <远程主机名> <本地分支名>:<远程分支名>		\\将本地分支上传到远程分支并合并
 $ git push origin master						  \\将本地仓库提交到origin的master上（本地分支名与远程分支名相同，则可以省略冒号：）
-
-
 ```
 
 
@@ -456,12 +466,6 @@ $ git push origin master						  \\将本地仓库提交到origin的master上（�
 光标快速移动到某一行：直接输入行号
 
 保存并推出：wq
-
-
-
-
-
-测试一下stash
 
 
 
