@@ -6,6 +6,8 @@ B站黑马Git笔记：https://blog.csdn.net/qq_58168493/article/details/12259230
 
 Git进阶视频，课程讲的很详细且命令都有具体操作：https://www.bilibili.com/video/BV1y4411a7Nn/
 
+可以再进一步了解git 、 github：https://www.bilibili.com/video/BV1Ep4y1Q7KR/
+
 ### GitHub
 
 > 一个在线软件源代码托管服务平台，使用Git作为唯一的版本控制软件
@@ -249,6 +251,7 @@ git diff <file>				\\ 详细查看仓库的变化
 git log						\\ 查看仓库的历史版本（主要是各个commit的id和信息）
 git log --pretty=oneline	\\ 只显示简略log信息
 git log --pretty=oneline --abbrev-commit		\\只显示commit id的前几位
+git log --graph --pretty=oneline --abbrev-commit
 							\\ 次命令很长且经常使用所以可以为该命令取别名，同时git log命令可以有很多操作，具体操作以后在实际使用中再补充
 git reflog					\\ 查看历史的所有commit操作
 
@@ -348,12 +351,31 @@ $ git commit
 
 #### Git分支
 
-##### 常用命令
+一次commit操作就会生成一个文件快照（新版本），而这些快照按时间先后可以连成一个串，这个串就叫分支。
+
+比如git log命令就是查看commit链，每个commit都有一个sha1值作为ID，可以凭借此ID进行版本穿梭
+
+![](Git笔记.assets/Gitlog查看提交链.png)
+
+##### 几个指针
+
+- **master**：git init之后默认会建一个分支叫master（这是默认名称）
+  - 一般来说master分支就是正式上线的版本分支
+- **Dev**：这是一个约定的叫法，当然也可以取别的名称
+  - 比如你要新开发某个小功能就可以建这个分支，在此分支上进行开发，等功能开发完毕再合并到主分支master上
+- 当然也可以有很多其他的分支，比如测试分支，debug分支等等，这和具体项目开发有关
+- **HEAD**：指向当前分支
+  - 上面提到既然可以同时有master、dev、debug等分支那么就需要判断你当前工作在哪个分支上，HEAD就是干这个的
+  - ![](Git笔记.assets/HEAD指针.png)
+
+
+
+##### 分支命令
 
 ```shell
 创建、删除、查看
 git branch <分支名>		\\ 新建分支
-git branch -d <分支名>		\\ 删除分支(不能删除当前分支)
+git branch -d <分支名>		\\ 删除分支(不能删除当前分支，即：不能我杀我自己)
 git branch				  \\ 查看分支，前面有*的就是当前分支
 
 切换
@@ -375,6 +397,9 @@ git checkout -b <分支名>	\\ 切换分支，若不存在则创建分支
 ```shell
 合并分支
 git merge <要合并的分支名>	 \\ 合并分支，把参数里面的分支合并到当前分支中
+
+除了merge还可以使用 rebase（变基）
+
 ```
 
 合并具体细节：
@@ -525,11 +550,36 @@ wq				\\保存并推出：
 
 
 
+### 报错和警告
 
+#### CRLF和LF警告信息
 
+##### 描述
 
+​	我在windows上修改了一个.md文件，使用git add发生如下警告：
 
+![](Git笔记.assets/CRLF和LF警告信息.png)
 
+##### 解释
+
+- CRLF和LF都是文本换行符号
+- CRLF是windows系统下的换行符，对应：“\r\n”
+- LF是Linux系统的换行符，对应：“\n"	
+
+git的操作过程大概就是下面这个样子
+
+```
+       repo
+    /        \ 
+crlf->lf    lf->crlf 
+ /              \    
+```
+
+如果要对其默认操作进行修改，这个配置文件就是操刀对象，具体操作：google
+
+```shell
+$ git config core.autocrlf true 
+```
 
 
 
