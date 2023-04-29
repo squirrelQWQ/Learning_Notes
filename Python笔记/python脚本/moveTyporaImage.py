@@ -2,7 +2,8 @@
     移动typora中assets文件夹中没有被引用的图片
 '''
 
-import os, re
+import os
+import re
 import shutil
 def getUsedNameSet():
     '''

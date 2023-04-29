@@ -379,19 +379,5 @@ input
 
 
 
-## Python库
-
-### Pandas
-
-### NumPy
-
-### matplotlib
-
-### Scikit-Learn
-
-
-
-
-
 
 
