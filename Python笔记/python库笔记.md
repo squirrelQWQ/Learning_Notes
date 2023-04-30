@@ -52,7 +52,7 @@ os.path.isdir()			#判断是否为目录或者指向目录的符号链接
 
 ```
 
-
+ 
 
 ##### os.path.split(path)
 

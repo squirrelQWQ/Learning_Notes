@@ -5,6 +5,8 @@
 import os
 import re
 import shutil
+
+
 def getUsedNameSet():
     '''
         1.读取.md文件
@@ -12,13 +14,14 @@ def getUsedNameSet():
     :return: 返回已使用图片名字的集合
     '''
     # src = input("请输入待扫描.md文件完整完整名称：")
-    with open(r'C:\Users\squir\Desktop\学习笔记\Git笔记\Git笔记.md', 'r' , encoding='utf-8') as md:
+    with open(mdPath, 'r', encoding='utf-8') as md:
         for line in md:
-            match = re.match("!\[]\((.*)\)" , line)
-            if(match):
+            match = re.match("(.*)!\[(.*)]\((.*)\)(.*)", line)
+            if (match):
                 name = match.group()[4:-1]
                 usedNameSet.add(name.split(".assets/")[1])
     print(f"扫描到已引用图片：{len(usedNameSet)}张")
+
 
 def getAssetsImages():
     '''
@@ -28,23 +31,28 @@ def getAssetsImages():
             若未引用则不做改动
     :return:返回移动的图片数目
     '''
-    for root, dirs, files in os.walk(r"C:\Users\squir\Desktop\学习笔记\Git笔记\Git笔记.assets", topdown=False):
+    for root, dirs, files in os.walk(assetsPath, topdown=False):
         for each in files:
             allNameSet.add(each)
     print(f"扫描到assets文件中图片：{len(allNameSet)}张")
 
-def mkdir(path):
+def getDeletePath():
+    dir = os.path.split(mdPath)[0]
+    name = os.path.split(mdPath)[1]
+    str = f"{name[:-3]}_imageDelete"
+    return os.path.join(dir, str)  # 拼接出新文件夹的路径名
+
+def mkdir():
     '''
     创建文件夹
     :param path:
     :return:
     '''
-    folder = os.path.exists(path)
-    if not folder:              # 判断是否存在文件夹如果不存在则创建为文件夹
-        os.makedirs(path)       # makedirs 创建文件时如果路径不存在会创建这个路径
-        print("创建新文件夹")
+    if not os.path.exists(deletePath):                  # 判断是否存在文件夹如果不存在则创建为文件夹
+        os.makedirs(deletePath)                         # makedirs 创建文件时如果路径不存在会创建这个路径
+        print(f"多余的图片将会放到新建的文件夹：{deletePath}")
     else:
-        print("文件夹已存在，无需创建")
+        print(f"多余的图片将会放到文件夹：{deletePath}")
 
 
 def deleteImage():
@@ -54,42 +62,37 @@ def deleteImage():
     '''
     num = 0
     for each in allNameSet:
-        if(each not in usedNameSet):
+        if (each not in usedNameSet):
             num += 1
-            src = os.path.join(r"C:\Users\squir\Desktop\学习笔记\Git笔记\Git笔记.assets" , each)
-            dst = os.path.join(r"C:\Users\squir\Desktop\学习笔记\Git笔记\Git笔记_imageDelet", each)
-            print(f"src:{src}")
-            print(f"dst:{dst}")
-            shutil.move(src , dst)
+            src = os.path.join(assetsPath, each)
+            dst = os.path.join(deletePath, each)
+            shutil.move(src, dst)
     print(f"总共移动图片{num}张")
 
 
-
 def remove_file():
-
     for file in filelist:
         src = os.path.join(old_path, file)
         dst = os.path.join(new_path, file)
-        print('src:', src)
-        print('dst:', dst)
         shutil.move(src, dst)
 
 
-usedNameSet = set()
-allNameSet = set()
 
+print(r"路径名示例：C:\图片删除测试.md")
+mdPath = input("请输入.md文件的完整路径：")
+assetsPath = os.path.join(os.path.split(mdPath)[0] , f"{os.path.split(mdPath)[1][:-3]}.assets") # 默认.md文件和.assets文件在同一个目录下
+# assetsPath = input("请输入.assets文件的完整路径：")
+
+print("**************************************************************")
+deletePath = getDeletePath()
+print(deletePath)
+mkdir()     # 创建未引用图片要存放的目录
+
+usedNameSet = set()  # md文件中引用的图片名
+allNameSet = set()  # assets文件中所有图片名
 
 getUsedNameSet()
 getAssetsImages()
-path = r"C:\Users\squir\Desktop\学习笔记\Git笔记\Git笔记_imageDelet"
-mkdir(path)  # 调用函数
 
 deleteImage()
-
-
-
-
-
-
-
-
+print("**************************************************************")
