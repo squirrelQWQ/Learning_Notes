@@ -2,6 +2,8 @@
 
 ## python3基础
 
+python的一大特点就是简单，很多东西不再那么细分，比如整数就只用int，不像c语言细分为short、int、long、longlong
+
 ### 基本类型
 
 #### 预备知识
@@ -32,17 +34,84 @@ str这个变量既可以表示字符串也可以表示数字
 
 由此可见python中的变量就像一个万能的指针可以指向任意类型的数据，它自己本身没有类型或者说是一种特殊的类型。
 
+<font color=browen>**注意：Python大小写敏感**</font>
 
 
-**注意：Python大小写敏感**
+
+##### 局部变量和全局变量
+
+- 局部变量就是定义在函数中的变量，其作用域仅在函数体中有效
+
+  - 在函数体中定义全局变量用关键词 global，此关键字详细使用效果：
+
+  - ```python
+    def fun01():
+        num01 = 111
+        print(f"id(num01) = {id(num01)}")
+    
+    num01 = 111111
+    print(f"id(num01) = {id(num01)}")
+    fun01()
+    '''
+    id(num01) = 2141168989584   #这是全局变量num01的id
+    id(num01) = 2141167947440   #这是局部变量num01的id，可以看出二者id不同说明是两个独立的变量
+    '''
+    
+    #****************************************************************************************************
+    def fun02():
+        # global num02 = 222    #这么写是错误的，在函数里定义全局变量不能初始化
+        global num02            #这么写就是在函数里创建全局变量，哪怕函数结束了num02依旧存在
+        num02 = 222
+    
+    
+    fun02()
+    print(f"num02={num02}")     #结果：num02=222 ， 也就是说在函数内定义的全局变量在函数结束后依旧存在，还能正常使用
+    
+    
+    #****************************************************************************************************
+    def fun03():
+        global num03        #这就相当于说明：我接下来在fun03中使用的num03是一个全局变量
+        print(f"id(num03) = {id(num03)}")
+        num03 = 333
+        print(f"id(num03) = {id(num03)}")
+    
+    
+    num03 = 333333
+    print(f"id(num03) = {id(num03)}")
+    fun03()
+    print(f"id(num03) = {id(num03)}")
+    print(f"num03={num03}")     #结果：num03=333 ， 由于在fun03之前已经定义了全局变量num03所以fun03()里面的num03和此处的num03是同一个
+    
+    '''
+    id(num03) = 1805577352816   #函数体外定义的num03的id值
+    id(num03) = 1805577352816   #函数题内使用global关键字表明函数体内num03就是函数体外的那一个（二者是同一个变量）
+    id(num03) = 1805577352592   #在函数体内对num03做修改
+    id(num03) = 1805577352592   #结果显示函数体内的修改能影响到函数体外的全局变量num03
+    '''
+    #****************************************************************************************************
+    '''
+    def fun04():
+        num04 = 444         #这样写会报错：name 'num04' is assigned to before global declaration
+        global num04        #意思就是说：你先定义局部变量num04有搞一个全局变量num04那这两个名字不久冲突了，你后续使用num04是要用哪个？
+                            # python，貌似没有用来区分二者的关键字（也就是说python作者并不允许你这么搞）
+    '''
+    
+    ```
+
+- 全局变量就是定义在函数之外的变量、
 
 
+
+##### 类型
 
 python的类型有如下这些：
 
-| 整数 | 浮点数 | 布尔类型 | 字符串 | 列表 | 元组 | 字典 | 集合 |
-| ---- | ------ | -------- | ------ | ---- | ---- | ---- | ---- |
-|      |        |          |        |      |      |      |      |
+| 整数   | 浮点数 | 布尔类型 | 字符串 | 列表 | 元组   | 字典 | 集合 |
+| ------ | ------ | -------- | ------ | ---- | ------ | ---- | ---- |
+| 不可变 | 不可变 | 不可变   | 不可变 | 可变 | 不可变 | 可变 | 可变 |
+|        |        |          | 序列   | 序列 | 序列   | 序列 | 序列 |
+
+
 
 学习数据类型无非就是一下几点;
 
@@ -51,7 +120,12 @@ python的类型有如下这些：
 - 类型特点（使用场景）
 - 类型的特殊操作
 
+其实后四个可以叫容器类型
 
+- **不可变数据（3 个）：**Number（数字）、String（字符串）、Tuple（元组）；
+  - 不可变数据进行“修改”后变量的id就会改变
+- **可变数据（3 个）：**List（列表）、Dictionary（字典）、Set（集合）。
+  - 不可变数据进行“修改”后变量的id不会改变
 
 ##### 类型判断
 
@@ -79,7 +153,11 @@ print("str_type的类型是：\t"   , type(str_type))
 
 #### 数值
 
+数值包括：整数、浮点数、布尔类型、复数
+
 ##### 整数
+
+python3整数只有int这一种，没有long或者其他类型
 
 ```python
 print(0x1234)     		#十六进制表示的整数
@@ -110,6 +188,19 @@ print(1.2e3,end='\t1.2e3表示 1.2 * 10^3')		#print函数默认末尾有个换�
 '''
 ```
 
+
+
+##### 布尔类型
+
+python中：True == 1 、False == 0
+
+- 注意python大小写敏感
+- 逻辑运算与或非：and or not   (python没有异或等其他逻辑运算)
+
+<font color=browen>**注意：python中if判断中的None等价于False，所以常常可以 if 搭配函数一起使用**</font>
+
+
+
 ##### 数值运算
 
 ```python
@@ -134,7 +225,7 @@ print(2**3)		#python的指数运算和c不一样，使用**
 
 #### 字符串
 
-##### 定义和初始化
+python中没有所谓的char、string的区别，统一都用字符串定义和初始化
 
 - ```python
   str01 = 'str01'
@@ -221,34 +312,115 @@ print(2**3)		#python的指数运算和c不一样，使用**
 
 
 
-#### 布尔类型
+#### 数据容器
 
-python中：True == 1 、False == 0
+各类容器可用的方法w3cschool讲的很好，无需重复记录
 
-- 注意python大小写敏感
-- 逻辑运算与或非：and or not   (python没有异或等其他逻辑运算)
+##### 列表 List [ ]
 
-
-
-#### 列表 List
-
-
-
-#### 字典 dict
-
-
-
-
-
-#### 元组 tuple
-
-
-
-#### 集合 set
+```python
+list.append(obj)		#末尾添加新的对象
+list.count(obj)			#统计某个元素在列表中出现的次数
+list.extend(seq)		#在列表末尾一次性追加另一个序列中的多个值（用新列表扩展原来的列表）
+list.index(obj)			#从列表中找出某个值第一个匹配项的索引位置
+list.insert(index, obj)	#在列表的index的地方插入一个对象
+list.pop([index=-1])	#移除列表中的一个元素（默认最后一个元素），并且返回该元素的值
+list.remove(obj)		#移除列表中某个值的第一个匹配项
+list.reverse()			#反向排列列表中元素
+list.sort( key=None, reverse=False)	#对原列表进行排序
+list.clear()			#清空列表
+list.copy()				#复制列表
+```
 
 
 
-#### 切片
+##### 字典 dict {k:v}
+
+```python
+radiansdict.clear()			#删除字典内所有元素
+radiansdict.copy()			#返回一个字典的浅复制
+radiansdict.fromkeys()		#创建一个新字典，以序列seq中元素做字典的键，val为字典所有键对应的初始值
+radiansdict.get(key, default=None)	#返回指定键的值，如果值不在字典中返回default值
+key in dict					#如果键在字典dict里返回true，否则返回false
+radiansdict.items()			#以列表返回可遍历的(键, 值) 元组数组
+radiansdict.keys()			#以列表返回一个字典所有的键
+radiansdict.setdefault(key, default=None)	#和get()类似, 但如果键不存在于字典中，将会添加键并将值设为default
+radiansdict.update(dict2)	#把字典dict2的键/值对更新到dict里
+radiansdict.values()		#以列表返回字典中的所有值
+```
+
+
+
+##### 元组 tuple （ ）
+
+元组中的内容不可修改，但是可以删除根据原元组的内容新建元组从而达到删除的目的
+
+```python
+tuple(seq)					#将列表转换为元组。	
+operator(tuple1,tuple2)		#较两个元组元素
+```
+
+
+
+##### 集合 set { }
+
+python集合符合数学概念：无序、不重复
+
+###### 集合的运算
+
+<font color=browen>**注意：集合使用操作符运算要求被操作对象都是集合，而使用函数的话函数中参数可以是任何可迭代对象**</font>
+
+| 操作符             | 等价函数                             | 含义解释                                             |
+| ------------------ | ------------------------------------ | ---------------------------------------------------- |
+| a-b                | set.difference(*others)              | a集合中b没有的元素                                   |
+| a\|b               | set.union(*others)                   | 并集                                                 |
+| a&b                | set.intersection(*others)            | 交集                                                 |
+| a^b                | set.symmetric_difference(*other*)    | a独有或b独有元素                                     |
+| set\|=other\|...   | set.update(**others*)                | 更新集合，添加来自 others 中的所有元素。             |
+| set &= other & ... | intersection_update(**others*)       | 更新集合，只保留其中在所有 others 中也存在的元素。   |
+| set-=other\|...    | difference_update(**others*)         | 更新集合，移除其中也存在于 others 中的元素。         |
+| set ^= other       | symmetric_difference_update(*other*) | 更新集合，只保留存在于集合的一方而非共同存在的元素。 |
+
+说明：参数中*other表示参数可以接受任意多个
+
+
+
+###### **集合的判断**
+
+| **set <= other** | **issubset**(*other*)   | 检测是否集合set中的每个元素都在 *other* 之中。               |
+| ---------------- | ----------------------- | ------------------------------------------------------------ |
+| **set < other**  | **issubset**(*other*)   | 检测集合set是否为 *other* 的真子集，即 `set <= other and set != other`。 |
+| **set >= other** | **issuperset**(*other*) | 检测是否 *other* 中的每个元素都在集合set之中。               |
+| **set > other**  | **issuperset**(*other*) | 检测集合是否为 *other* 的真超集，即 `set >= other and set != other`。 |
+
+
+
+###### 集合其它函数
+
+```python
+add(elem)		#将元素 elem 添加到集合中。
+remove(elem)	#从集合中移除元素 elem。 如果 elem 不存在于集合中则会引发 KeyError。
+discard(elem)	#如果元素 elem 存在于集合中则将其移除。
+pop()			#从集合中移除并返回任意一个元素。 如果集合为空则会引发 KeyError。
+clear()			#从集合中移除所有元素。
+isdisjoint(other)	#如果集合中没有与 other 共有的元素则返回 True。 当且仅当两个集合的交集为空集合时，两者为不相交集合。
+```
+
+
+
+
+
+
+
+#### 序列操作
+
+w3cschool总结的很不错：https://www.w3cschool.cn/python3/python3-sequence.html
+
+
+
+<font color=browen>**注意：字典和集合不支持索引、切片、相加、相乘操作**</font>
+
+##### 切片
 
 > 切片(slice)是对序列型对象(如`list`, `string`, `tuple`)的一种高级索引方法。
 
@@ -262,6 +434,26 @@ python中：True == 1 、False == 0
 
 - step > 0 表示从 start_index 向右遍历
 - step < 0 表示从start_index 向左遍历
+
+##### 索引
+
+##### 相加
+
+类型相同的序列才能进行相加
+
+##### 乘法
+
+##### 成员资格
+
+简单来说就是能够用 in 关键字判断元素是否存在
+
+
+
+##### 通用函数
+
+![](python基础笔记.assets/序列的内置函数.png)
+
+
 
 
 
@@ -334,6 +526,8 @@ python 函数的参数传递：
 
 python 中一切都是对象，严格意义我们不能说值传递还是引用传递，我们应该说传不可变对象和传可变对象。
 
+
+
 ##### 函数参数类型
 
 - 必需参数
@@ -343,6 +537,12 @@ python 中一切都是对象，严格意义我们不能说值传递还是引用�
   - *表示元组
   - **表示字典
   - 
+
+
+
+##### 返回值
+
+python 函数默认返回 None ， 在 if 语句中 None 等价于 False
 
 
 
