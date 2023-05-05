@@ -318,6 +318,10 @@ python中没有所谓的char、string的区别，统一都用字符串定义和�
 
 原来w3cschool就是对官方文档的摘录：https://docs.python.org/zh-cn/3/library/stdtypes.html#sequence-types-list-tuple-range
 
+
+
+字符串也是一种数据容器，不过它只能存放字符这一种类型的数据
+
 ##### 列表 List [ ]
 
 ```python
@@ -607,7 +611,49 @@ lambda 形式参数:函数体
 
 ### 文件操作
 
+文件操作无非是一下几步
 
+#### 打开文件
+
+```python
+f = open(filePath , mode , encoding)					# 打开文件，但是需要补上close函数
+f.close()
+with open("诗词.txt" , 'r' , encoding="utf-8") as f:			#推荐写法，这样不用再手动写close函数
+    print(f.read())
+```
+
+
+
+#### 读写文件
+
+##### 读取文件
+
+```python
+with open("诗词.txt" , 'r' , encoding="utf-8") as f:	# 读取诗词.txt并按行输出
+
+f.read()		# 读取整个文件内容，返回字符串
+f.read(num)		# 读取文件num字节内容，返回字符串
+f.readline()	# 读取一行，返回字符串
+f.readlines()	# 读取所有行，并返回一个列表（即返回结果有多个字符串，故以列表形式进行打包）
+for line in f:	# 按行遍历
+	
+```
+
+可以看到：所有读取的结果都是一个或多个字符串（列表）
+
+
+
+##### 读写指针
+
+- file文件默认维护一个读写指针，它指向你当前操作的位置（作用就好比：记录磁盘的磁头目前所在位置）
+- 该指针初始指向文件最开头
+  - 使用 readline()后，该指针就会移动到下一行开头
+
+
+
+
+
+#### 关闭文件
 
 
 

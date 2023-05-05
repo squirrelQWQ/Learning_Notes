@@ -127,8 +127,6 @@ git status示例：
 
 - 如上图的  Git笔记/Git笔记.md     MySQL笔记/MySQL散记.md
 
-commit命令提交的是你最后一次运行 `git add` 命令时的那个版本，而不是你运行 `git commit` 时，在工作目录中的当前版本。 所以，运行了 `git add` 之后又作了修订的文件，需要重新运行 `git add` 把最新版本重新暂存起来：
-
 
 
 ##### Head
@@ -475,7 +473,11 @@ $ git branch -a				\\可以用该命令来查看所有分支
 
 ##### 拉取
 
-比如我在github上进行了修改并提交，此时再进行本地执行 git push 操作
+比如我在github上进行了修改并提交（或者有别人对这个远程库进行了push），此时再进行本地执行 git push 操作会报错，这时就需要先pull然后再push，如下图：
+
+![](Git笔记.assets/push报错01.png)
+
+报错大意是说：由于远程仓库发生了修改，所以导致你的这次push操作失败，建议先pull获取最新的远程仓库，然后再push
 
 ```shell
 $ git pull <远程主机名> <远程分支名>:<本地分支名>		\\从远程仓库获取代码并合并本地的版本
@@ -497,6 +499,7 @@ $ git push origin master						  \\将本地仓库提交到origin的master上（�
 $ git push -u origin master			\\第一次使用push命令可以这样操作，意思是说吧origin和master绑定在一起
 $ git push							\\使用-u绑定一次之后的push操作可以不写参数
 
+$ git push -f 						\\强制push，如果远程仓库已经有其他的提交但没pull到本地仓库，执行此命令会丢失那些提交 
 ```
 
 
