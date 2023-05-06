@@ -29,34 +29,53 @@ Python模块是一个Python文件，以.py结尾，Python包就是包含多个�
 
 > 本模块提供了一种使用与操作系统相关的功能的便捷式途径
 
+<font color=#b407e4>**说明：以下代码中参数不一定是函数的全部参数，只写出部分必要的参数，想看详细参数自查官方文档：https://docs.python.org/zh-cn/3/library/os.html**</font>
+
 #### 系统相关变量和操作
 
 > 等什么时候用到了再写
 
 #### 文件和目录相关操作
 
+<font color=#b407e4>**说明：一般来说下面所用到的路径参数都是字符串，不过有些也支持：文件描述符、类路径对象、bytes类型**</font>
+
 ##### 常用函数列表
 
 ```python
+# 扫描目录
 os.walk(top)			#遍历以top为根目录的所有条目
 os.listdir(path='.')	#返回path中所有条目组成的列表(.和..两个目录除外)
-os.mkdir(path)			#创建目录path
+
+# 创建和删除
+os.mkdir(name)			#创建目录path
 os.makedirs(name)		#递归创建目录
-os.remove()				#仅用于删除文件
-os.rmdir()				#仅用于删除目录
+os.remove(path)			#仅用于删除文件
+os.rmdir(path)			#仅用于删除目录
 os.removedirs(name)		#递归删除目录
 os.rename(src,dst)		#文件或目录重命名
-os.getcwd()				#获取当前路径
-os.path.join()			#拼接参数为一个地址（使用该方式能够跨平台，不用考虑路径分隔符）
-os.path.split(path)		#将路径 path 拆分为一对，即 (head, tail)
-os.path.exists(dir)		#判断dir是否存在
-os.path.isabs(dir)		#判断dir是否为绝对路径
-os.path.isfile()		#判断是否为文件或者指向文件的符号链接（快捷方式）
-os.path.isdir()			#判断是否为目录或者指向目录的符号链接
 
+# 路径类型判断
+os.path.exists(path)	#判断dir是否存在
+os.path.isabs(path)		#判断dir是否为绝对路径
+os.path.isfile(path)	#判断是否为文件或者指向文件的符号链接（快捷方式）
+os.path.isdir(path)		#判断是否为目录或者指向目录的符号链接
+
+# 其它工具
+os.getcwd()					#获取当前路径
+os.path.join(path,*paths)	#拼接参数为一个地址（使用该方式能够跨平台，不用考虑路径分隔符）
+os.path.split(path)			#将路径 path 拆分为一对，即 (head, tail)
 ```
 
-##### os.listdir()
+##### os.listdir(path=’.‘)
+
+- 返回一个列表，里面记录path目录下的所有条目名称（包括目录和文件），不扫描子目录中内容
+- path如果是文件，则会报错
+- 运行示例：
+  - ![](python模块笔记.assets/listdir执行.png)
+  - ![](python模块笔记.assets/listdir执行结果.png)
+  - 可以看到结果中既有文件夹名也有文件名，且都用字符串形式表示
+
+
 
 ##### os.path.split(path)
 

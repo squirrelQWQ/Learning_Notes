@@ -1,8 +1,10 @@
 菜鸟教程yyds：https://www.runoob.com/python3/python3-tutorial.html
 
-## python3基础
+### python3基础
 
 python的一大特点就是简单，很多东西不再那么细分，比如整数就只用int，不像c语言细分为short、int、long、longlong
+
+<font color=#b407e4>**说明：以下代码中参数不一定是函数的全部参数，只写出部分必要的参数，想看详细参数自查官方文档：https://docs.python.org/zh-cn/3/library/os.html**</font>
 
 ### 基本类型
 
@@ -34,7 +36,7 @@ str这个变量既可以表示字符串也可以表示数字
 
 由此可见python中的变量就像一个万能的指针可以指向任意类型的数据，它自己本身没有类型或者说是一种特殊的类型。
 
-<font color=browen>**注意：Python大小写敏感**</font>
+<font color=#b407e4>**注意：Python大小写敏感**</font>
 
 
 
@@ -197,7 +199,7 @@ python中：True == 1 、False == 0
 - 注意python大小写敏感
 - 逻辑运算与或非：and or not   (python没有异或等其他逻辑运算)
 
-<font color=browen>**注意：python中if判断中的None等价于False，所以常常可以 if 搭配函数一起使用**</font>
+<font color=#b407e4>**注意：python中if判断中的None等价于False，所以常常可以 if 搭配函数一起使用**</font>
 
 
 
@@ -308,7 +310,61 @@ python中没有所谓的char、string的区别，统一都用字符串定义和�
   '''
   ```
 
-  
+
+
+
+##### 常用函数
+
+```python
+#类型转换
+str()：将其他类型的数据转换为字符串类型。
+int()
+float()
+ord()
+chr()
+
+#大小写转换
+string.upper()			#将字符串全部转换为大写字母。
+string.lower()			#将字符串全部转换为小写字母。
+string.swapcase()		#大写变小写同时小写变大写
+string.title()			#将字符串中的单词首字母大写，并返回结果字符串。
+string.capitalize()		#将字符串的第一个字符大写，并返回结果字符串。
+
+#其他修改
+string.strip([chars])	#去除字符串两端指定字符集（或空格）并返回去除后的字符串。如果未指定字符集，则默认去除空格。
+string.lstrip([chars])	#去除字符串左侧指定字符集（或空格）并返回去除后的字符串。如果未指定字符集，则默认去除空格。
+string.rstrip([chars])	#去除字符串右侧指定字符集（或空格）并返回去除后的字符串。如果未指定字符集，则默认去除空格。
+string.split([sep[, maxsplit]])			
+						#将字符串按照指定分隔符进行分割，并返回分割后的字符串列表。可选参数maxsplit用于指定分割的最大次数。
+string.join(iterable)	#将一个可迭代对象中的元素连接为一个字符串，并返回连接后的字符串。
+string.replace(old, new[, count])		
+						#将字符串中所有的旧子串替换为新子串，并返回替换后的字符串。可选参数count用于指定替换的最大次数。
+string.center(width[, fillchar])		
+						#返回指定宽度的居中字符串，并用指定字符（或空格）填充两侧不足的部分。
+
+
+#查找
+string.rfind()
+string.lfind()
+string.find(substring, start=0, end=len(str))		
+						#在字符串中查找指定子串，并返回其第一次出现的位置。可选参数start和end用于指定搜索范围，如果未指定则默认搜索整个字符串。
+
+'''判断'''
+string.isalnum()	#判断字符串是否只包含字母和数字，并返回布尔值。
+string.isalpha()	#判断字符串是否只包含字母，并返回布尔值。
+string.isdigit()	#判断字符串是否只包含数字，并返回布尔值。
+string.islower()	#判断字符串中的字母是否全部为小写，并返回布尔值。
+string.isupper()	#判断字符串中的字母是否全部为大写，并返回布尔值。
+string.startswith(prefix[, start[, end]])		
+					#判断字符串是否以指定前缀开头，返回布尔值。可选参数start和end用于指定搜索范围，如果未指定则默认搜索整个字符串。
+string.endswith(suffix[, start[, end]])		
+					#判断字符串是否以指定后缀结尾，返回布尔值。可选参数start和end用于指定搜索范围，如果未指定则默认搜索整个字符串。
+
+#其他函数
+len(str)			#返回字符串的长度。
+string.count()
+
+```
 
 
 
@@ -395,7 +451,7 @@ python集合符合数学概念：无序、不重复
 
 ###### 集合的运算
 
-<font color=browen>**注意：集合使用操作符运算要求被操作对象都是集合，而使用函数的话函数中参数可以是任何可迭代对象**</font>
+<font color=#b407e4>**注意：集合使用操作符运算要求被操作对象都是集合，而使用函数的话函数中参数可以是任何可迭代对象**</font>
 
 | 操作符             | 等价函数                             | 含义解释                                             |
 | ------------------ | ------------------------------------ | ---------------------------------------------------- |
@@ -445,7 +501,7 @@ w3cschool总结的很不错：https://www.w3cschool.cn/python3/python3-sequence.
 
 序列就是有序
 
-<font color=browen>**注意：字典和集合不支持索引、切片、相加、相乘操作**</font>
+<font color=#b407e4>**注意：字典和集合不支持索引、切片、相加、相乘操作**</font>
 
 ##### 切片
 
@@ -580,20 +636,36 @@ python 中一切都是对象，严格意义我们不能说值传递还是引用�
 
 
 
+##### 参数中的 * 和 /
+
+直接看别人的解释：https://www.zhihu.com/question/287097169
+
+最权威的还得是官方文档：https://docs.python.org/zh-cn/3.8/tutorial/controlflow.html#special-parameters
+
 
 
 ##### 返回值
 
-python可以多返回值
+python可以多返回值，实际上是将多个返回值合并为一个元组
 
 ```python
 def fun():
 	return 123,"hello"
 
-a,b = fun()
+str = fun()
+print(f"str的类型是{type(str)}，str = {str}")
+a,b = fun()			# 可以以这种方式来获取多个返回值
+print(f"a的类型是{type(a)}，a = {a}")
+print(f"b的类型是{type(b)}，b = {b}")
+
+'''运行结果：
+str的类型是<class 'tuple'>，str = (123, 'hello')
+a的类型是<class 'int'>，a = 123
+b的类型是<class 'str'>，b = hello
+'''
 ```
 
-python 函数默认返回 None ， 在 if 语句中 None 等价于 False
+python 函数默认返回 None ， 在 if 语句中 None 等价于 False。
 
 
 
