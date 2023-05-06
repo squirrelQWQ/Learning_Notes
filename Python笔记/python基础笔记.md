@@ -616,11 +616,29 @@ lambda 形式参数:函数体
 #### 打开文件
 
 ```python
-f = open(filePath , mode , encoding)					# 打开文件，但是需要补上close函数
+f = open(filePath , mode , encoding)					 # 打开文件，但是需要补上close函数
 f.close()
-with open("诗词.txt" , 'r' , encoding="utf-8") as f:			#推荐写法，这样不用再手动写close函数
+with open("诗词.txt" , 'r' , encoding="utf-8") as f:		#推荐写法，这样不用再手动写close函数
     print(f.read())
 ```
+
+##### filePath
+
+- 可以用相对路径（相对于py脚本文件的位置）
+  - with open("诗词.txt" , 'r' , encoding="utf-8") as f:
+- 也可以用绝对路径
+  - with open("D:\MyFile\Pycharm-WorkSpace\pythonProject\诗词.txt" , 'r' , encoding="utf-8") as f:
+
+
+
+##### 打开模式
+
+| 模式          | 文件类型 | 文件存在                                   | 文件不存在 |
+| ------------- | -------- | ------------------------------------------ | ---------- |
+| r（默认模式） | 文本文件 | 打开文件，读写位置在文件开头               | 报错       |
+| w             | 文本文件 | **清空文件内容**并打开，读写位置在文件开头 | 创建       |
+| a             | 文本文件 | 打开文件，读写位置在文件末尾               | 创建       |
+|               |          |                                            |            |
 
 
 
@@ -643,19 +661,74 @@ for line in f:	# 按行遍历
 
 
 
-##### 读写指针
+##### 读写位置
 
-- file文件默认维护一个读写指针，它指向你当前操作的位置（作用就好比：记录磁盘的磁头目前所在位置）
+- file文件默认维护一个读写位置，它指向你当前操作的位置（作用就好比：记录磁盘的磁头目前所在位置）
+
 - 该指针初始指向文件最开头
+  
   - 使用 readline()后，该指针就会移动到下一行开头
+  
+- 查看和修改文件读写位置：
+
+  - ```python
+    f.tell()				#获取文件读写位置
+    f.seek(offset, from)	#修改文件读写位置
+    	from参数用于指定文件的读写位置，该参数的取值有：0、1、2，它们代表的含义分别如下：
+    	0：表示在开始位置读写；
+    	1：表示在当前位置读写；
+    	2：表示在末尾位置读写。
+    ```
 
 
 
+##### 写入文件
+
+```python
+f.write(str)	# 将str写入内存的缓冲区中
+f.flush()		# 将内存缓冲区中的内容写入磁盘
+f.close() 		# close()内置了flush()
+```
 
 
-#### 关闭文件
+
+### 异常
+
+#### 捕获异常
+
+就像java的try-catch
+
+##### 捕获异常
+
+```
+try:
+	可能出错的代码
+except:
+	出错后执行的代码
+[else:]							# else是可选项
+	若不出错则执行的代码
+[finally:]						# finally是可选项
+	不管有没有异常都要执行
+```
 
 
+
+##### 捕获指定异常
+
+```
+try：
+	代码1
+except error as e:			# 这里的error不是由你瞎写的，而是python已经定义好的error类型，比如：FileNotFoundError
+	如果发生指定的error则执行的代码
+except (error01 , error02):	# 可以指定多个异常，不过得用元组的形式来给出
+	如果发生上述异常则执行的代码
+```
+
+![](python基础笔记.assets/打开文件异常.png)
+
+
+
+和java一样，python的异常也会一层一层的向上传递，控制台输出的那一长串报错就是函数栈
 
 
 
