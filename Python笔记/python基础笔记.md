@@ -6,7 +6,7 @@ python的一大特点就是简单，很多东西不再那么细分，比如整�
 
 <font color=#b407e4>**说明：以下代码中参数不一定是函数的全部参数，只写出部分必要的参数，想看详细参数自查官方文档：https://docs.python.org/zh-cn/3/library/os.html**</font>
 
-### 基本类型
+### 数据类型
 
 #### 预备知识
 
@@ -317,7 +317,7 @@ python中没有所谓的char、string的区别，统一都用字符串定义和�
 
 ```python
 #类型转换
-str()：将其他类型的数据转换为字符串类型。
+str()		#将其他类型的数据转换为字符串类型。
 int()
 float()
 ord()
@@ -540,6 +540,16 @@ w3cschool总结的很不错：https://www.w3cschool.cn/python3/python3-sequence.
 
 
 
+### 生成器
+
+
+
+### 迭代器
+
+生成器和迭代器：https://www.cnblogs.com/wj-1314/p/8490822.html#!comments
+
+
+
 
 
 
@@ -677,7 +687,7 @@ lambda 形式参数:函数体
 
 
 
-### 迭代器
+
 
 
 
