@@ -1,3 +1,5 @@
+
+
 菜鸟教程yyds：https://www.runoob.com/python3/python3-tutorial.html
 
 ### python3基础
@@ -228,6 +230,10 @@ print(2**3)		#python的指数运算和c不一样，使用**
 #### 字符串
 
 python中没有所谓的char、string的区别，统一都用字符串定义和初始化
+
+- 单引号: `'允许包含有 "双" 引号'`
+- 双引号: `"允许嵌入 '单' 引号"`
+- 三重引号: `'''三重单引号'''`, `"""三重双引号"""`
 
 - ```python
   str01 = 'str01'
@@ -540,13 +546,81 @@ w3cschool总结的很不错：https://www.w3cschool.cn/python3/python3-sequence.
 
 
 
-### 生成器
+### python特有概念
+
+#### 生成器
 
 
 
-### 迭代器
+#### 迭代器
 
 生成器和迭代器：https://www.cnblogs.com/wj-1314/p/8490822.html#!comments
+
+
+
+查看python版本：python --version
+
+安装目录中的python.exe就是python的解释器
+
+#### 和C、Java区别
+
+- python使用缩进来表示代码块而非 { }
+
+- python语句一般都是一行，所以每一个语句末尾不需要写 ; 来表示语句结束
+
+  - 多行语句，也可以使用\来表示语句有多行
+
+  - ```python
+    salary = 3 + \
+        4 + \
+        5
+    print(salary)	#运行结果为12
+    ```
+
+  - 在 [], {}, 或 () 中的多行语句，不需要使用反斜杠 ，例如：
+
+    ```python
+    total = ['item_one', 'item_two', 'item_three',
+            'item_four', 'item_five']
+    ```
+
+- python中变量不用显示申明类型，直接赋值即可
+
+  - ```python
+    int num = 3;	\\这是c语言或者java的写法
+    num = 3			#这是python的写法
+    ```
+
+在python中：变量是没有类型的！
+
+
+
+#### 注释
+
+```python
+# 这是单行注释
+
+"""
+	这是多行注释
+"""
+
+'''
+	这也是多行注释(可以但不建议,还是统一用双引号)
+'''
+```
+
+#### 输入输出
+
+就是两个函数：print() 和 input()
+
+input
+
+- ​	菜鸟教程讲的比较详细：https://www.runoob.com/python3/python3-func-input.html
+
+- 以换行为结束符
+- 返回值仅为str类型，想输入其他类型数据可以进行类型转换
+
+
 
 
 
@@ -814,69 +888,144 @@ except (error01 , error02):	# 可以指定多个异常，不过得用元组的�
 
 
 
-### 其他
+### Python官方文档
 
-查看python版本：python --version
+#### BNF范式（巴科斯范式）
 
-安装目录中的python.exe就是python的解释器
+> 可以理解为是专门用来<u>描述</u>（定义）语言的<u>元语言</u>（意思是说它就是最底层的描述）
 
-#### 和C、Java区别
+BNF是最基础的一种，还有扩展的：ABNF，EBNF
 
-- python使用缩进来表示代码块而非 { }
+##### BNF语法
 
-- python语句一般都是一行，所以每一个语句末尾不需要写 ; 来表示语句结束
-
-  - 多行语句，也可以使用\来表示语句有多行
-
-  - ```python
-    salary = 3 + \
-        4 + \
-        5
-    print(salary)	#运行结果为12
-    ```
-
-  - 在 [], {}, 或 () 中的多行语句，不需要使用反斜杠 ，例如：
-
-    ```python
-    total = ['item_one', 'item_two', 'item_three',
-            'item_four', 'item_five']
-    ```
-
-- python中变量不用显示申明类型，直接赋值即可
-
-  - ```python
-    int num = 3;	\\这是c语言或者java的写法
-    num = 3			#这是python的写法
-    ```
-
-在python中：变量是没有类型的！
-
-
-
-#### 注释
-
-```python
-# 这是单行注释
-
-"""
-	这是多行注释
-"""
-
-'''
-	这也是多行注释(可以但不建议,还是统一用双引号)
-'''
+```
+::= 	//翻译成人话就是：“定义为”
+<A> 	//A为必选项
+“A” 	//A是一个术语，不用翻译
+'A'		//A是一个术语，不用翻译
+[A]		//A是可选项
+{A}		//A是重复项，可出现任意次数，包括0次
+A*		//A是重复项，可出现任意次数，包括0次
+A+		//A可出现1次或多次
+(A B)	//A和B被组合在一起
+A|B		//A、B是并列选项，只能选一个
 ```
 
-#### 输入输出
+<font color=#b407e4>**说明：上面的语法仅为我收集的一些，可以看到同一个意思可能有不同的表达，我也不知道这是BNF本来如此还是不同地方的BNF语法不同**</font>
 
-就是两个函数：print() 和 input()
 
-input
 
-- ​	菜鸟教程讲的比较详细：https://www.runoob.com/python3/python3-func-input.html
+##### 一个例子
 
-- 以换行为结束符
-- 返回值仅为str类型，想输入其他类型数据可以进行类型转换
+这是[Python文档](https://docs.python.org/zh-cn/3/reference/lexical_analysis.html#literals)中对字符串字面量的BNF定义：
+
+```BNF
+stringliteral   ::=  [stringprefix](shortstring | longstring)		
+stringprefix    ::=  "r" | "u" | "R" | "U" | "f" | "F"
+                     | "fr" | "Fr" | "fR" | "FR" | "rf" | "rF" | "Rf" | "RF"
+shortstring     ::=  "'" shortstringitem* "'" | '"' shortstringitem* '"'
+longstring      ::=  "'''" longstringitem* "'''" | '"""' longstringitem* '"""'
+shortstringitem ::=  shortstringchar | stringescapeseq
+longstringitem  ::=  longstringchar | stringescapeseq
+shortstringchar ::=  <any source character except "\" or newline or the quote>
+longstringchar  ::=  <any source character except "\">
+stringescapeseq ::=  "\" <any source character>
+```
+
+​		这段BNF描述了一个字符串字面量（stringliteral）的语法。字符串字面量可以是短字符串（shortstring）或长字符串（longstring），并且可以有一个前缀（stringprefix）。
+
+​		前缀可以包括"r"、"u"、"R"、"U"、"f"、"F"、"fr"、"Fr"、"fR"、"FR"、"rf"、"rF"、"Rf"、"RF"中的任何一个，用于指示是否启用原始字符串（raw string）、unicode字符串、格式化字符串（formatted string）。
+
+​		短字符串可以由单引号（'）或双引号（"）包围，其中shortstringitem表示字符串里面的任意字符，但不能包含单引号或双引号，需要通过转义字符（\）来实现。长字符串可以由三个单引号（'''）或三个双引号（""")包围，其中longstringitem表示字符串里面的任意字符，除了反斜杠（\）字符本身。因此，长字符串可以跨越多行而不需要使用换行符。
+
+​		stringescapeseq表示转义序列，由反斜杠（\）后面的任何字符组成。
+
+**分析:**
+
+BNF的递归描述方式类似于“写作文的总分结构”，上面是“总”，下面是“分”。上来就说明字符串字面量是什么，然后又进一步解释第一句定义中所用到的名词，不断套娃。
+
+![](python基础笔记.assets/幻灯片1.PNG)
+
+**逐句解释**
+
+- ```
+  stringliteral   ::=  [stringprefix](shortstring | longstring)	
+  ```
+
+  - `stringliteral`这就是个英文单词，意为：字符串类型字面量
+  - 翻译成人话：字符串字面量，由一个可选的前缀（`stringprefix`）和一个短字符串（`shortstring`）或长字符串（`longstring`）组成
+
+  
+  
+- ```
+  stringprefix    ::=  "r" | "u" | "R" | "U" | "f" | "F"
+                       | "fr" | "Fr" | "fR" | "FR" | "rf" | "rF" | "Rf" | "RF"
+  ```
+
+  - 这句话就是进一步解释前缀（stringprefix）的含义
+  - 翻译成人话：stringprefix可以是 r、u、R、U、...、RF中的任意一个
+
+  
+  
+- ```
+  shortstring     ::=  "'" shortstringitem* "'" | '"' shortstringitem* '"'
+  ```
+
+  - 这句话进一步解释短字符串（`shortstring` ）的含义
+  - 翻译成人话：`shortstring` 表示短字符串，由一对单引号或双引号括起来，并由0个或多个 `shortstringitem` 组成
+
+  
+
+- ```
+  longstring      ::=  "'''" longstringitem* "'''" | '"""' longstringitem* '"""'
+  ```
+
+  - 翻译成人话：`longstring` 表示长字符串，由一对三重单引号或双引号括起来，并由0个或多个 `longstringitem` 组成
+  
+  
+- ```
+  shortstringitem ::=  shortstringchar | stringescapeseq
+  ```
+
+  - 翻译成人话：`shortstringitem` 表示短字符串中的一项，可以是 `shortstringchar` 或 `stringescapeseq`
+  
+  
+- ```
+  longstringitem  ::=  longstringchar | stringescapeseq
+  ```
+
+  - 翻译成人话：`longstringitem` 表示长字符串中的一项，可以是 `longstringchar` 或 `stringescapeseq`
+  
+  
+- ```
+  shortstringchar ::=  <any source character except "\" or newline or the quote>
+  ```
+
+  - 翻译成人话：`shortstringchar` 表示短字符串中的普通字符，不包括反斜杆和换行符等特殊字符
+  
+  
+- ```
+  longstringchar  ::=  <any source character except "\">
+  ```
+
+  - 翻译成人话：`longstringchar` 表示长字符串中的普通字符，不包括反斜杆
+  
+  
+- ```
+  stringescapeseq ::=  "\" <any source character>
+  ```
+
+  - 翻译成人话：`stringescapeseq` 表示转义序列，以反斜杆开头并紧跟一个字符。可以用来表示一些特殊字符，如 `\n` 表示换行符
+
+
+
+
+
+
+
+
+
+
 
 
 
