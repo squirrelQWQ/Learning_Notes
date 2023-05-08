@@ -2,6 +2,34 @@
 
 菜鸟教程yyds：https://www.runoob.com/python3/python3-tutorial.html
 
+遇事不决，官方文档：https://docs.python.org/zh-cn/3.10/whatsnew/index.html
+
+### 关于版本
+
+python版本大体可分为三个阶段：
+
+- python1.0，远古时期的python，对现在的学习而言：没卵用，无需了解
+- python2.0，这个是python的**第一个正式发布**的版本，且很多linux系统自带python2.0
+- python3.0，这个版本**不兼容python2.0**，所以可以理解python3.0和2.0是两个不同的语言
+
+我学习所安装的是python3.10，所以下文中的笔记也许会和网络上的有些冲突，也不用奇怪
+
+![截图时间：2023年5月8号](python基础笔记.assets/python版本.png)
+
+（截图时间：2023年5月8号）可以看到python官方文档都只有这些版本，所以就连文档都没有的python版本就无需花时间去了解！！！
+
+本笔记中所有代码均基于python3.10（我电脑装的就是这个版本）
+
+
+
+![截图时间：2023年5月8号](python基础笔记.assets/python支持时间.png)
+
+（截图时间：2023年5月8号）这是维基百科中描述的python各版本发布时间和支持时间，可以看到截至截图时间python3.6之后的版本尚支持，之前的版本已经不支持，所以在python文档中常常能看到下图中的这种描述，等3.7版本不再支持图中的3.6可能会更改成3.7，所以看到了也莫要觉得奇怪。
+
+![](python基础笔记.assets/python文档描述.png)
+
+
+
 ### python3基础
 
 python的一大特点就是简单，很多东西不再那么细分，比如整数就只用int，不像c语言细分为short、int、long、longlong
@@ -751,11 +779,13 @@ b的类型是<class 'str'>，b = hello
 
 python 函数默认返回 None ， 在 if 语句中 None 等价于 False。
 
+python库函数中很多都是返回一个对象作为结果，有时没有返回的东西就返回None（比如正则对象的match()方法）
+
 
 
 ##### 匿名函数
 
-> 就是使用 lambda 关键字定义匿名函数
+> 就是使用 lambda 关键字定义匿名函数，其作用就是简化代码，就是一个语法糖
 
 lambda 形式参数:函数体
 
@@ -982,13 +1012,11 @@ BNF的递归描述方式类似于“写作文的总分结构”，上面是“�
 
   - 翻译成人话：`longstring` 表示长字符串，由一对三重单引号或双引号括起来，并由0个或多个 `longstringitem` 组成
   
-  
 - ```
   shortstringitem ::=  shortstringchar | stringescapeseq
   ```
 
   - 翻译成人话：`shortstringitem` 表示短字符串中的一项，可以是 `shortstringchar` 或 `stringescapeseq`
-  
   
 - ```
   longstringitem  ::=  longstringchar | stringescapeseq
@@ -996,20 +1024,17 @@ BNF的递归描述方式类似于“写作文的总分结构”，上面是“�
 
   - 翻译成人话：`longstringitem` 表示长字符串中的一项，可以是 `longstringchar` 或 `stringescapeseq`
   
-  
 - ```
   shortstringchar ::=  <any source character except "\" or newline or the quote>
   ```
 
   - 翻译成人话：`shortstringchar` 表示短字符串中的普通字符，不包括反斜杆和换行符等特殊字符
   
-  
 - ```
   longstringchar  ::=  <any source character except "\">
   ```
 
   - 翻译成人话：`longstringchar` 表示长字符串中的普通字符，不包括反斜杆
-  
   
 - ```
   stringescapeseq ::=  "\" <any source character>
@@ -1019,9 +1044,27 @@ BNF的递归描述方式类似于“写作文的总分结构”，上面是“�
 
 
 
+#### 特殊的名称
+
+```python
+ __all__
+ __init__()
+```
 
 
 
+#### 描写方式
+
+python文档对函数或常量的描述大体分如下几个部分
+
+- **名称**：函数名/变量名 + 函数完整参数 + 函数别名/变量别名
+  - ![](python基础笔记.assets/函数完整参数.png)
+  - ![](python基础笔记.assets/常量与别名.png)
+- **功能描述**
+- **代码演示**：演示环境都是python自带的shell
+  - ![](python基础笔记.assets/文档代码演示.png)
+- **修改历史**
+  - ![](python基础笔记.assets/文档修改历史.png)
 
 
 
