@@ -33,6 +33,8 @@
 
 【Python基础笔记.md】:记录python的基础知识，包括基本语法，各种数据类型
 
+【Python模块笔记.md】:记录python各种模块的使用方法，比如re库、os库
+
 【Python脚本】：保存我自己写的脚本文件
 
 
