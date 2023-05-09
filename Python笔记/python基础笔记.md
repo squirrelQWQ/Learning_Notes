@@ -24,15 +24,11 @@ python版本大体可分为三个阶段：
 
 ![截图时间：2023年5月8号](python基础笔记.assets/python支持时间.png)
 
-（截图时间：2023年5月8号）这是维基百科中描述的python各版本发布时间和支持时间，可以看到截至截图时间python3.6之后的版本尚支持，之前的版本已经不支持，所以在python文档中常常能看到下图中的这种描述，等3.7版本不再支持图中的3.6可能会更改成3.7，所以看到了也莫要觉得奇怪。
-
-![](python基础笔记.assets/python文档描述.png)
-
 
 
 ### python3基础
 
-python的一大特点就是简单，很多东西不再那么细分，比如整数就只用int，不像c语言细分为short、int、long、longlong
+python3的一大特点就是简单，很多东西不再那么细分，比如整数就只用int，不像c语言细分为short、int、long、long long
 
 <font color=#b407e4>**说明：以下代码中参数不一定是函数的全部参数，只写出部分必要的参数，想看详细参数自查官方文档：https://docs.python.org/zh-cn/3/library/os.html**</font>
 

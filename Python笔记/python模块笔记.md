@@ -100,19 +100,45 @@ os.path.split(path)			#将路径 path 拆分为一对，即 (head, tail)
 
 > 本模块提供了与 Perl 语言类似的正则表达式匹配操作。（主要针对字符串而非字节串）
 
-使用re库进行正则表达式匹配的一般流程是：
 
-1. 书写正则表达式模板
-2. 使用re.compile() 将正则表达式模式编译成一个正则表达式对象
-3. 使用正则表达式对象的方法来进行搜索、匹配等操作
 
-这么做的好处是可以重复使用该正则表达式模板，嫌麻烦也可以不生成正则表达式对象
+##### 三个概念
+
+在Python的re库中，正则表达式、正则表达式对象和匹配对象是三个不同的概念，它们分别表示了不同的内容。
+
+1. 正则表达式 正则表达式是一种用来描述字符串结构的语法规则，它由各种字符和特殊符号组成。在re库中，我们使用字符串来表示正则表达式。
+2. 正则表达式对象 正则表达式对象是在编译正则表达式时生成的一个对象，它包含了正则表达式的模式以及一些可选的标志位。我们可以使用re.compile函数来创建正则表达式对象。
+3. 匹配对象 当对一个字符串进行匹配时，如果匹配成功，就会返回一个匹配对象。这个匹配对象包含了匹配到的结果以及一些相关信息，比如匹配的开始位置和结束位置等。我们可以使用re.match或者re.search等函数来进行匹配，并得到匹配对象。
+
+>  构建正则表达式对象需要正则表达式作为参数，而正则表达式对象调用匹配函数的结果会以匹配对象的方式给出
+
+##### 例子
+
+```python
+import re
+str = r'!\[.*]\((.*)\)'
+text = "我在windows上修改了一个.md文件，使用git add发生如下警告：![](警告信息.png)"
+pattern = re.compile(str)
+match = pattern.search(text)
+
+'''
+str的类型是:    <class 'str'>, 			它的内容是：!\[.*]\((.*)\)
+pattern的类型是:<class 're.Pattern'> , 	它的内容是：re.compile('!\\[.*]\\((.*)\\)')
+match的类型是:  <class 're.Match'>, 	它的内容是：<re.Match object; span=(37, 50), match='![](警告信息.png)'>
+'''
+```
+
+上面这段这段代码中：
+
+- str：就是以字符串形式表示的正则表达式
+- pattern：就是编译创建的正则对象
+- match：就是正则对象调用匹配函数返回的匹配对象
 
 
 
 #### 语法
 
-> 就是如何用字符来构造一个正则表达式
+> 就是如何用字符来书写一个正则表达式
 
 
 
@@ -138,13 +164,10 @@ os.path.split(path)			#将路径 path 拆分为一对，即 (head, tail)
 > 罗列了正则表达式对象的常用方法
 
 ```python
-re.compile(pattern, flags=0)		
-									#依据正则表达式和标志（即：re库中定义的常量）生成正则表达式对象
-re.search(pattern, string, flags=0)	
-									#在字符串中搜索匹配正则表达式的第一个位置并返回MatchObject对象。
+re.compile(pattern, flags=0)		#依据正则表达式和标志（即：re库中定义的常量）生成正则表达式对象
+re.search(pattern, string, flags=0)	#在字符串中搜索匹配正则表达式的第一个位置并返回MatchObject对象。
     								#如果没有匹配项，则返回None
-re.match(pattern, string, flags=0)	
-									#尝试从字符串开头匹配正则表达式，并返回MatchObject对象。
+re.match(pattern, string, flags=0)	#尝试从字符串开头匹配正则表达式，并返回MatchObject对象。
     								#如果没有匹配项，则返回None。
 re.split(pattern, string, maxsplit=0, flags=0)
 									#根据正则表达式对字符串进行分割，并返回分割后的子字符串列表。
@@ -152,22 +175,20 @@ re.split(pattern, string, maxsplit=0, flags=0)
 re.fullmatch(pattern, string, flags=0)
 									#尝试从字符串开头到结尾完全匹配正则表达式，并返回MatchObject对象。
     								#如果没有匹配项，则返回None。
-re.findall(pattern, string, flags=0)
-									#查找字符串中所有与正则表达式匹配的非重叠子串，并以列表形式返回。
+re.findall(pattern, string, flags=0)#查找字符串中所有与正则表达式匹配的非重叠子串，并以列表形式返回。
 re.sub(pattern, repl, string, count=0, flags=0)
 									#使用repl替换字符串中与正则表达式匹配的部分，返回替换后的字符串。
     								#count参数控制替换次数，0表示全部替换。
 re.finditer(pattern, string, flags=0)
 									#查找字符串中所有与正则表达式匹配的非重叠子串，并以迭代器形式返回MatchObject对象。
-re.escape(pattern)
-									#转义正则表达式中的特殊字符，返回转义后的字符串。
+re.escape(pattern)					#转义正则表达式中的特殊字符，返回转义后的字符串。
 ```
 
 
 
 #### 匹配对象
 
-> 正则对象的方法很多都会返回一个匹配对象作为结果
+> 正则对象的匹配方法会返回一个匹配对象（Match）作为结果
 
 
 
@@ -191,7 +212,15 @@ re.escape(pattern)
 
 
 
-### tensorflow
+### Matplotlib
+
+
+
+### SciPy
+
+
+
+### scikit-learn
 
 
 
