@@ -446,6 +446,22 @@ $ git stash drop stash@{0}		\\手动删除现场栈中的某一个现场
 
    3. ![](Git笔记.assets/github添加SSH02-1682178731323.png)
 
+##### 克隆
+
+> 把别人仓库的东西clone到自己电脑
+
+1. 先在本地新建一个文件夹存放仓库的东西，并在该文件夹目录下打开git bash
+
+2. ```
+   $ git init		\\先初始化这个空文件夹
+   ```
+
+3. ```
+   git clone <URL> \\从别人仓库复制URL即可下载
+   ```
+
+经过这三步只是把远程仓库的东西clone到了本地，相当于在本地创建了一个git仓库
+
 
 
 ##### 添加远程
@@ -454,13 +470,10 @@ $ git stash drop stash@{0}		\\手动删除现场栈中的某一个现场
 ssh-keygen -t rsa -C "squirrelQWQ@outlook.com"	  \\先在本地创建一个ssh密钥
 
 $ git remote rm origin							  \\删除远程仓库origin	
-$ git remote									  \\查看本地仓库关联的远程仓库（只显示仓库名称）
-$ git remote -v									  \\查看本地仓库关联的远程仓库（显示仓库fetch和push链接）
-$ git remote add origin git@github.com:squirrelQWQ/Learning_Notes.git	
-												  \\添加远程仓库，并起名为origin
+$ git remote add <shortname> <url>				  \\添加远程仓库，并起名为origin（习惯名称）
 ```
 
-实际上添加远程仓库就是在本地新建了一个 origin/master分支（这个分支默认隐藏，称为：追踪分支）
+添加好远程仓库，在第一次执行push操作时会在本地新建一个 origin/master分支（这个分支默认隐藏，称为：追踪分支）
 
 ```shell
 $ git branch -a				\\可以用该命令来查看所有分支
@@ -468,6 +481,19 @@ $ git branch -a				\\可以用该命令来查看所有分支
   remotes/origin/master
 
 ```
+
+##### 查看
+
+```shell
+$ git remote			\\查看本地仓库关联的远程仓库（只显示仓库名称）
+$ git remote -v			\\查看本地仓库关联的远程仓库（显示仓库名称+URL）
+$ git remote show <remote>	\\查看远程分支详细信息
+$ git branch -a			\\查看所有分支（包括隐藏起来的跟踪分支）
+
+$ git config --local -l	\\查看分支的追踪关系，如下图
+```
+
+![](Git笔记.assets/查看分支追踪.png)
 
 
 
@@ -480,6 +506,8 @@ $ git branch -a				\\可以用该命令来查看所有分支
 报错大意是说：由于远程仓库发生了修改，所以导致你的这次push操作失败，建议先pull获取最新的远程仓库，然后再push
 
 ```shell
+$ git fetch <remote>		\\仅抓取远程仓库数据，不与本地仓库合并
+
 $ git pull <远程主机名> <远程分支名>:<本地分支名>		\\从远程仓库获取代码并合并本地的版本
 pull  = fetch + merge ， 也就是说pull操作实际上有两步
 $ git pull origin master:master
@@ -501,6 +529,8 @@ $ git push							\\使用-u绑定一次之后的push操作可以不写参数
 
 $ git push -f 						\\强制push，如果远程仓库已经有其他的提交但没pull到本地仓库，执行此命令会丢失那些提交 
 ```
+
+
 
 
 
