@@ -216,7 +216,9 @@ re.escape(pattern)					#转义正则表达式中的特殊字符，返回转义�
 
 
 
+### PIL
 
+Python Imaging Library 一个处理处理图片的库（但是有个更强的家伙，opencv）
 
 ## python非标准库
 

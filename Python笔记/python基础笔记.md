@@ -572,19 +572,47 @@ w3cschool总结的很不错：https://www.w3cschool.cn/python3/python3-sequence.
 
 ### python特有概念
 
-#### 生成器
-
-
-
-#### 迭代器
-
-生成器和迭代器：https://www.cnblogs.com/wj-1314/p/8490822.html#!comments
-
-
-
 查看python版本：python --version
 
 安装目录中的python.exe就是python的解释器
+
+#### 迭代
+
+> 迭代（iteration）
+
+生成器和迭代器：https://www.cnblogs.com/wj-1314/p/8490822.html#!comments
+
+简单理解：迭代就是python提供的一种特有的遍历方法，可迭代对象就是可以用for来循环的东西
+
+```python
+比如：
+for img,targets in dataloader:
+for data in dataloader:
+```
+
+上面代码中dataloader就是一个可迭代对象（我不需要关注它具体是什么数据类型，只需要知道它能用for-in遍历即可）
+
+```c
+for(int i=0 ; i<len ; i++){
+	visit()
+}
+```
+
+和c语言不同，python中使用for循环不需要初始化索引变量，不需要指定边界也不需要对索引变量递增
+
+**总而言之**：python中迭代器就是为了更方便遍历操作
+
+
+
+常见的可迭代对象有：集合、字典、列表、元组、字符串、文件、生成器等。可以看到不是所有的可迭代对象都有索引（下标），而对这些对象不用for循环遍历就可以使用迭代器来进行遍历
+
+具体操作就是：
+
+1. 根据对象创建生成迭代器
+2. 从迭代器中使用next()来获取下一项
+3. 重复2操作知道next()把迭代器取空（即：StopIteration异常）
+
+
 
 #### 和C、Java区别
 
