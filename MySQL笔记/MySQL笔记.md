@@ -50,7 +50,7 @@ MySQL安装教程：https://www.cnblogs.com/itcui/p/15511683.html
 使用windows命令行
 
 ```sql
-mysql -u root -ppassword --连接数据库，密码为password
+mysql -u root -ppassword --root用户连接数据库，密码为ppassword
 
 update mysql.user set authenttication_string=password('123456') where user='root' and Host='localhost';  --修改用户密码
 flush privileges;	--刷新权限

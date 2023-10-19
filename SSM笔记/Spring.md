@@ -65,7 +65,7 @@ import标签可以对xml配置文件进行拆解，类似于web文件中把JavaS
   - @Service				使用在service层类上用于实例化Bean
   - @Repository		使用在dao层类上用于实例化Bean
 
-- @Autowired		使用在字段上用于根据类型依赖注入
+- @Autowired		使用在字段上用于根据类型依赖注入（也就是所谓的依赖注入，写上该注解让Spring自动装配）
   - 也可单独使用，前提是容器中仅含有一个该数据类型实例
 
 - @Qualifier			结合@Autowired一起使用用于根据名称进行依赖注入

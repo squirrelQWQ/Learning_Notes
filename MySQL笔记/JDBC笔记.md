@@ -6,6 +6,32 @@ SUN公司设置的为了java统一连接各种数据库的一套接口（规范�
 
 ![](JDBC笔记.assets/JDBC实质.png)
 
+比如说：
+
+```xml
+ <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
+<dependency>
+	<groupId>com.mysql</groupId>
+	<artifactId>mysql-connector-j</artifactId>
+</dependency>
+```
+
+这段代码是pom.xml中的依赖配置，它是mysql厂商提供的mysql数据库驱动（也就是mysql厂商根据JDBC规范编写的操作mysql数据库的代码，它是一个jar包）
+
+![](JDBC笔记.assets/mysql驱动jar包.png)
+
+说白了上图中的这个jar包就是mysql驱动！
+
+
+
+这是springboot官方文档中的介绍：
+
+The coordinates of the MySQL JDBC driver have changed from `mysql:mysql-connector-java` to `com.mysql:mysql-connector-j`. If you are using the MySQL JDBC driver, update its coordinates accordingly when upgrading to Spring Boot 3.0.
+
+简单来说：mysql驱动改名字了，如果用springboot3必须指定为：mysql-connector-j
+
+
+
 ### 简单流程
 
 1. 注册驱动
@@ -149,6 +175,10 @@ DBUtils封装了在建立连接后对数据库的操作，主要有三个核心�
 - com.daoLearn.dao_.test        //存测试类的包
 
 
+
+
+
+### 补充
 
 
 
