@@ -620,11 +620,19 @@ $ git config core.autocrlf true
 
 
 
+#### git push失败
 
+![](Git笔记.assets/git-push报错.png)
 
+这个报错说github:22拒绝访问
 
+**解决方法：**
 
+- 换网络，流水忆落花yyds
+- 换端口，不使用22端口
+- 换种连接协议，我用的是ssh方式，可以换成http方式
 
+我只能说，网络问题真的奇奇怪怪，换网、重启电脑是最简单的尝试解决方式！！！
 
 
 
