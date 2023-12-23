@@ -52,6 +52,9 @@ root@f43b4e46d382:/# cat /ect/os-release
 
 **容器（Container）：**
 
+> 使用一次进入容器的命令：docker exec -it <container_name_or_id> /bin/bash
+> 就理解了为什么说docker是一个轻量化的虚拟机技术，每个容器就像是一个单独的虚拟机
+
 - 容器是基于镜像运行的实体，它可以被启动、停止、删除和移动。
 - 容器是镜像的一个实例，它包含了镜像以及在运行时所需的可写文件系统层。这个可写的文件系统层使得容器可以在运行时修改和存储数据。
 - 容器是一个独立的运行环境，可以在不同的环境中进行部署，而不用担心环境差异。
@@ -80,13 +83,28 @@ docker ps
 查看所有容器（包括停止的）
 docker ps -a
 
+查看容器统计信息（View Container Stats）:
+docker stats <container_name_or_id>
+
 ```
 
 ##### 运行
 
 ```shell
-启用docker服务：
+==1==启用docker服务：
 systemctl start docker	
+
+==2==根据镜像启动容器
+docker run -d --name <container_name> <image_name>:<tag>
+	-d: 后台运行容器
+	--name: 指定容器的名称
+	
+==3==进入容器内部
+docker exec -it <container_name_or_id> /bin/bash
+
+==4==启动exited的容器
+docker start <container_id_or_name>
+
 
 ```
 
@@ -99,8 +117,9 @@ systemctl start docker
 ##### 删除
 
 ```shell
-删除镜像（<image_name_or_id> 表示要删除的镜像的名称或ID。）
+==1==删除镜像（<image_name_or_id> 表示要删除的镜像的名称或ID。）
 docker rmi <image_name_or_id>
+
 删除镜像强制（如果镜像有关联的容器则不能直接删除，可以强制删除）
 docker rmi -f <image_name_or_id>
 
