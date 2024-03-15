@@ -232,17 +232,83 @@ Math、Date、Array、String
 
 
 
+### API
+
+##### 获取DOM元素
+
+js获取DOM元素可以使用CSS选择器进行选择
+
+document.querySelector('css选择器')
+
+获取到DOM对象后就可以修改对象的属性从而达到修改html元素的效果
+
+##### 修改DOM对象属性
+
+innerText：纯文本，不解析标签
+
+innerHTML：解析标签
+
+常见属性：href、title、src等
+
+操作样式：
+
+- 通过style
+- classname：修改元素的class从而修改样式
+- classList：修改对象的class从而修改样式（add、remove、toggle）
 
 
 
+##### 自定义属性
+
+> js中属性分两种，如style、value等都是标准属性，此外H5还支持自定义属性
+
+注意：自定义属性一律以”data-“开头（非强制但通用）
 
 
 
+##### 定时器
+
+间歇函数：setInterval(函数，间隔毫秒数)
+
+> 这个函数一经启动就不会自己停止，会一直执行下去，得用clearInterval(n)函数停止
+
+```javascript
+function fn(){
+	console.log("这是fn函数")
+}
+let n = setInterval(fn,1000)	//启动定时器，它将每隔1秒执行一次fn函数
+
+clearInterval(n)		//关闭定时器
+
+```
+
+每个定时器都有一个独一无二的编号（就是定时器函数的返回值，一个数值id）
 
 
 
+##### 事件监听
+
+元素对象.addEventListener('事件类型',要执行的函数)
+
+事件监听三个要素：
+
+- 事件源：dom元素
+- 事件类型：比如鼠标单击（click），鼠标经过（mouseover）
+- 事件调用的函数
+
+![](JS笔记.assets/事件类型.png)
 
 
 
+##### 事件对象
 
+> 简单来说就是js提供的记录事件详细信息的一个对象
+
+事件绑定的回调函数中的第一个参数就是事件对象，一般写做e
+
+```javascript
+元素.addEventListener('click',function(e){
+	console.log(e)
+})
+```
 
