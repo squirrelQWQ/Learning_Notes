@@ -226,6 +226,130 @@ Python Imaging Library 一个处理处理图片的库（但是有个更强的家
 
 ### pandas
 
+#### 文件
+
+> pandas支持打开多种类型文件，具体方法以read_开头，比如：read_csv
+
+
+
+#### DataFrame
+
+> 用于存储多列数据集(DataFrame可以说是由一组Series组成)
+
+使用pandas打开文件默认都是DataFrame类型，可以使用方法将其转换为Series类型
+
+打开文件时甚至可以选择打开哪几列（usecols参数）
+
+
+
+
+
+
+
+#### Series
+
+> 存储单列数据集
+
+直接看视频讲解:[Pandas 之 Series 简介（完结）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1kF411N7eq/?spm_id_from=333.337.search-card.all.click&vd_source=553038a6aa71e8272f6ae73b38f60f80)
+
+##### 基本介绍
+
+它包含三个东西：value、lable、index
+
+它是存储数据的一个类型，而且存储进去的数据都会带有一个lable标签，实际上它的value都是使用NumPy中的ndarray来存储的。
+
+可以通过lable来访问数据value，也可以通过index索引来访问value（也就是说Series是有序的）。
+
+##### 创建
+
+> 可是使用list、dict、tuple 等类型作为初始参数来创建Series
+
+Series中缺失的值会用Numpy中的nan（not a number）类型来补全
+
+
+
+##### 属性
+
+- values(是一个ndarray类型)
+- index
+- dtype
+- size
+- shape（返回元组，但是Series是一维的）
+- is_unique（数据值是否有重复）
+- is_monotonic（数值是否递增）
+
+
+
+##### 特有方法
+
+- .head()
+- .tail()
+
+
+
+##### 统计类方法
+
+- .count(skipna=False)
+- .sum()
+- .cumsum()
+- .pct_change()
+- .mean()
+- .median()
+- .std()
+- .max()
+- .min()
+- .describe()
+- sample()
+- unique()
+- nunique()
+
+可用的参数
+
+- skipna = False
+  - 大部分操作都忽略nan进行，可以设置参数skipna=False来让数据操作不忽略缺失值nan
+- min_count = 3
+  - 当Series中数值不少于3个时才进行运算
+- 
+
+
+
+##### 算数运算
+
+> 是的，它可以进行+，-，*，/（加减乘除）的操作
+
+
+
+##### 广播
+
+#####  python内置函数
+
+```python
+len(s)
+type()
+dir()
+list()
+dict()
+each in s	# 这是判断each在不在s的index里
+each in s.values # 判断each在不在s的data中
+
+
+```
+
+
+
+
+
+##### 排序
+
+> 下列的方法都是不修改原Series的，都是返回一个新的副本
+
+- .sort_values()
+- .sort_index()
+- .nlargest(10)  # 获得最大的10个值
+- .value_counts()
+- 分箱参数（数据比较多可以分组后进行操作）
+- .apply() # 可以再每个Series的值上执行函数
+
 
 
 ### numpy
