@@ -111,7 +111,25 @@ tips：数据在GPU和CPU之间进行转移是一件很耗时间的事情！！�
 
 
 
-ResNet
+
+
+### transforms
+
+> from torchvision import transforms
+>
+> 这个包提供图像数据处理的功能，用于图像预处理
+
+在处理图像时一般有三种格式：PIL image、Numpy、和Tensor
+
+对这三种格式的处理可以封装在transforms之中
+
+
+
+
+
+
+
+
 
 
 

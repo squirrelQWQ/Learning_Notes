@@ -240,9 +240,15 @@ Python Imaging Library 一个处理处理图片的库（但是有个更强的家
 
 打开文件时甚至可以选择打开哪几列（usecols参数）
 
+##### 基本介绍
+
+DataFrame是一个二维表，长得和execel表一样，它有：index、column，value组成
+
+其中的每一列都可以看作是一个Series
 
 
 
+![](python模块笔记.assets/DataFrame结构.png)
 
 
 
